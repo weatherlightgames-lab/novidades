@@ -21,13 +21,16 @@ MES = ["janeiro", "fevereiro", "março", "abril", "maio", "junho", "julho", "ago
 # Ícone e cor de cada tipo nos filtros (cores da família do calendário)
 ESTILO_TIPO = {"Figuras": ("🎎", "#6b3fa0"), "Peluches": ("🧸", "#b23a2e"), "Blind Boxes": ("🎁", "#b8860b"),
                "Model Kits": ("🤖", "#4d5a66"), "TCG": ("🃏", "#1f6f8b"), "Acessórios": ("🛡️", "#2c6fd1"),
-               "RPG e Livros": ("📚", "#8a5a2b"), "Outros": ("✨", "#46677a")}
+               "RPG e Livros": ("📚", "#8a5a2b"), "Miniaturas": ("⚔️", "#a8781a"), "Outros": ("✨", "#46677a")}
+# Ordem dos filtros na página
+ORDEM = ["TCG", "Acessórios", "Figuras", "Model Kits", "Miniaturas", "Blind Boxes", "Peluches", "RPG e Livros", "Outros"]
 
 # Tipo do produto a partir do nome (ordem importa: o primeiro que bater ganha)
 TIPOS = [
     ("Peluches", r"\b(plush|peluche)"),
     ("Blind Boxes", r"\b(blind ?box|gashapon|capsule|mystery|caixa surpresa|trading figure)"),
     ("Model Kits", r"\b(model kit|gunpla|gundam accessories|30 ?mm|figure-rise|kotobukiya)"),
+    ("Miniaturas", r"\b(miniaturas?|warhammer|citadel|wizkids|nolzur|reaper|wargam)"),
     ("Figuras", r"\b(figura|figure|nendoroid|figma|statue|estátua)"),
     ("Acessórios", r"\b(sleeves?|deck ?box|playmat|binder|álbum|album|portfolio|dice|dados|toploader|pages|storage|tapete)"),
     ("RPG e Livros", r"\b(daggerheart|dungeons|d&d|rpg|livro|book|manga|mangá)"),
@@ -108,7 +111,7 @@ def gerar():
         l = lisboa(d["data"]); k = l.date()
         if k not in grupos: grupos[k] = []; ordem.append(k)
         grupos[k].append(d)
-    tipos = [t for t, _ in TIPOS] + ["Outros"]
+    tipos = ORDEM
     presentes = [t for t in tipos if any(d["tipo"] == t for d in vis)]
     filtros = ('<div class="flt"><p class="flt-t">Filtra por categoria <span>· podes escolher várias</span></p>'
                '<div class="filters" role="group" aria-label="Filtrar por categoria (podes escolher várias)">'
@@ -151,7 +154,7 @@ def gerar():
         "about": {"@id": ld_loja["@id"]}, "spatialCoverage": {"@type": "Place", "name": "Évora, Alentejo, Portugal"},
         "mainEntity": {"@type": "ItemList", "itemListElement": [{"@type": "ListItem", "position": i + 1, "item": produto(d)}
                                                                 for i, d in enumerate(vis[:50])]}}]}
-    css = (".f .ic{font-size:1.25rem;line-height:1}.flt{margin:0 0 1.6rem}"
+    css = (".lede a{color:var(--hd-ink)}.f .ic{font-size:1.25rem;line-height:1}.flt{margin:0 0 1.6rem}"
            "@media (max-width:640px){.f{flex-direction:column;gap:.1rem;height:3.5rem;line-height:1.1;text-align:center}.f .ic{font-size:1.05rem}}"
            ".dia{margin:0 0 2rem}.dia h2{font-size:1.05rem;letter-spacing:.06em;text-transform:uppercase;margin:0 0 .8rem}"
            ".grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:1rem}"
@@ -204,7 +207,7 @@ def gerar():
     <span class="eyebrow">Atualizado de hora a hora · Évora</span>
     <h1>Novidades <em>Weatherlight</em></h1>
     <p class="sub">Os produtos novos da Weatherlight, a tua loja de hobby em Évora, no Alentejo</p>
-    <p class="lede">Figuras de anime, TCG, blind boxes, Gunpla e peluches: tudo o que chega à loja aparece aqui no próprio dia, na loja online e na loja física em Évora.</p>
+    <p class="lede">Trading Card Games, Acessórios, Figuras de Anime, Model Kits, Miniaturas, Blind Boxes e Peluches: tudo o que chega à Weatherlight aparece agora aqui, no próprio dia. Encontras na nossa <a href="{LOJA}/" target="_blank" rel="noopener">loja online</a> e na loja física em Évora.</p>
     <div class="info"><a href="{LOJA}/" target="_blank" rel="noopener">🛒 Loja online</a><a href="{DISCORD}" target="_blank" rel="noopener">🔔 Alertas no Discord</a><a href="{EVENTOS}/">📅 Eventos e torneios</a><a href="{html.escape(ld_loja.get("hasMap", ""))}" target="_blank" rel="noopener">📍 Mapa</a><a href="https://www.instagram.com/weatherlightgames/" target="_blank" rel="noopener">Instagram</a><a href="{url}feed.xml">RSS</a></div>
   </div>
 </header>
