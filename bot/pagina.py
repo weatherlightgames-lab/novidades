@@ -251,18 +251,17 @@ def primeira_compra(ld_loja):
     c = contacto()
     passos = [
         ("Escolhe os produtos", f'Encontras tudo na nossa <a href="{LOJA}/"{NOVA}>loja online</a>: junta ao carrinho o que quiseres. Não encontras o que procuras? Fala connosco: sempre que possível, tentamos encomendá-lo junto dos nossos distribuidores.'),
-        ("Escolhe como recebes", "Podes receber em casa, por <strong>DHL</strong>, em Portugal Continental, ou escolher <strong>Levantamento em Loja</strong> e vir buscar a tua encomenda a Évora, sem pagar portes. Os portes de envio aparecem no segundo passo do carrinho e dependem do destino, do peso ou valor da encomenda e do método escolhido."),
+        ("Escolhe como recebes", "Podes receber em casa, por <strong>DHL</strong> em Portugal Continental ou por <strong>CTT Expresso</strong> nas ilhas, ou escolher <strong>Levantamento em Loja</strong> e vir buscar a tua encomenda a Évora, sem pagar portes. Os portes de envio aparecem no segundo passo do carrinho e dependem do destino, do peso ou valor da encomenda e do método escolhido."),
         ("Paga como preferires", "Aceitamos <strong>cartão de crédito, Multibanco, MB WAY, PayPal, carteira digital e transferência bancária</strong>. Tens um código de desconto? Depois de escolheres o método de pagamento, escreve-o em <strong>Cupão de Desconto</strong>."),
         ("Recebe a confirmação", "Depois de validado o pagamento, recebes um e-mail com a confirmação de que a encomenda está paga e a respetiva fatura."),
-        ("Acompanha a entrega", "Quando a encomenda é expedida, recebes um e-mail com o código de tracking. A entrega é feita nos primeiros dois dias úteis seguintes à expedição. Se escolheste levantar na loja, aparece dentro do nosso horário de funcionamento."),
+        ("Acompanha a entrega", "Quando a encomenda é expedida, recebes um e-mail com o código de tracking. Em Portugal Continental, a entrega é feita nos primeiros dois dias úteis seguintes à expedição. Se escolheste levantar na loja, aparece dentro do nosso horário de funcionamento."),
     ]
     corpo = (
         '<section class="sec"><h2>Como comprar online</h2><ol class="passos">'
         + "".join(f"<li><strong>{a}</strong><p>{b}</p></li>" for a, b in passos) + "</ol></section>\n"
         '<section class="box"><h2>Envios e levantamento</h2><ul class="dates">'
-        '<li><span>Transportadora</span><span>DHL</span></li>'
-        '<li><span>Para onde enviamos</span><span>Portugal Continental (não enviamos para as ilhas)</span></li>'
-        '<li><span>Prazo de entrega</span><span>Até 2 dias úteis depois da expedição</span></li>'
+        '<li><span>Portugal Continental</span><span>DHL · até 2 dias úteis depois da expedição</span></li>'
+        '<li><span>Açores e Madeira</span><span>CTT Expresso</span></li>'
         '<li><span>Levantamento em Loja</span><span>Grátis, na loja em Évora, dentro do horário</span></li></ul>'
         f'<p class="m small">{html.escape(ld_loja.get("address", {}).get("streetAddress", ""))}, Évora · <a href="{mapa}"{NOVA}>Ver no mapa</a> · {TELEFONE}</p></section>\n'
         '<section class="box faq"><h2>Perguntas frequentes</h2>' + faq([
@@ -276,10 +275,10 @@ def primeira_compra(ld_loja):
             ("Podem ajudar-me a escolher?", "Claro! Seja o teu primeiro TCG, a tua primeira figura ou um presente, ajudamos de acordo com o teu orçamento e os teus gostos. Passa pela loja ou fala connosco."),
             ("Ainda tenho dúvidas. Como vos contacto?", f"Escreve-nos ({c}), liga para o {TELEFONE} ou fala connosco no <a href=\"{CONVITE}\"{NOVA}>Discord</a>."),
         ]) + f'<p class="m small">Lê também a <a href="{LOJA}/page/politica-de-entrega"{NOVA}>Política de Entrega</a>, a <a href="{LOJA}/page/politica-de-devolucao"{NOVA}>Política de Devolução</a> e os <a href="{LOJA}/page/termos-e-condicoes"{NOVA}>Termos e Condições</a>.</p></section>')
-    desc = ("Como comprar na Weatherlight, loja de hobby em Évora (Alentejo, Portugal): métodos de pagamento, envios por DHL para "
-            "Portugal Continental, levantamento grátis na loja, devoluções e trocas.")
+    desc = ("Como comprar na Weatherlight, loja de hobby em Évora (Alentejo, Portugal): métodos de pagamento, envios para todo o país "
+            "(DHL no Continente, CTT Expresso nas ilhas), levantamento grátis na loja, devoluções e trocas.")
     perguntas = [("Quais são os métodos de pagamento?", "Cartão de crédito, Multibanco, MB WAY, PayPal, carteira digital e transferência bancária."),
-                 ("Enviam para todo o país?", "Enviamos por DHL para Portugal Continental, com entrega até 2 dias úteis depois da expedição. Não enviamos para as ilhas."),
+                 ("Enviam para todo o país?", "Sim. Para Portugal Continental enviamos por DHL, com entrega até 2 dias úteis depois da expedição; para os Açores e a Madeira enviamos por CTT Expresso."),
                  ("Posso levantar a encomenda na loja?", "Sim. Escolhe Levantamento em Loja: não pagas portes e levantas na loja em Évora, dentro do horário.")]
     ld = {"@context": "https://schema.org", "@graph": [ld_loja, {"@type": "FAQPage", "url": url, "inLanguage": "pt-PT",
           "mainEntity": [{"@type": "Question", "name": p, "acceptedAnswer": {"@type": "Answer", "text": r}} for p, r in perguntas]}]}
