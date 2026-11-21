@@ -13,6 +13,10 @@ on:
         description: "URL(s) de produto para juntar só ao site, sem anunciar no Discord."
         required: false
         default: ""
+      sem_discord:
+        description: "Execução normal, mas sem anunciar no Discord (os produtos novos só entram no site)."
+        type: boolean
+        default: false
 
 permissions:
   contents: write
@@ -31,6 +35,7 @@ jobs:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
           TESTE: ${{ github.event.inputs.teste }}
           ADICIONAR: ${{ github.event.inputs.adicionar }}
+          SEM_DISCORD: ${{ github.event.inputs.sem_discord }}
         run: |
           if [ -n "$TESTE" ]; then
             python3 bot/novidades.py bot/vistos.json --teste $TESTE
@@ -43,7 +48,7 @@ jobs:
         run: |
           git config user.name "Weatherlight Bot"
           git config user.email "noreply@github.com"
-          git add -A -- . ':!bot/__pycache__'
+          git add -A
           if ! git diff --cached --quiet; then
             git commit -m "Novidades: $(date -u +%F\ %H:%M)"
             for i in 1 2 3; do git pull --rebase origin main && git push origin HEAD:main && break; sleep 5; done

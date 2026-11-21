@@ -151,13 +151,15 @@ def main():
     vistos = set(json.load(open(estado_f)))
     novos = sorted(atuais - vistos)
     print(f"{len(atuais)} produtos no site, {len(novos)} novos.")
+    sem_discord = os.environ.get("SEM_DISCORD", "").lower() in ("1", "true", "sim")
     if novos:
-        if not webhook: sys.exit("Falta o segredo DISCORD_WEBHOOK.")
+        if not webhook and not sem_discord: sys.exit("Falta o segredo DISCORD_WEBHOOK.")
         ds = []
         for u in novos[:30]:  # proteção: no máximo 30 por hora
             try: ds.append(dados_produto(u))
             except Exception as e: print("Falhou", u, e)
-        publicar(webhook, ds)
+        if sem_discord: print("Sem Discord: só junto ao site.")
+        else: publicar(webhook, ds)
         pagina.acrescentar(ds); pagina.gerar()
         vistos |= set(novos)
         json.dump(sorted(vistos), open(estado_f, "w"), indent=0)
