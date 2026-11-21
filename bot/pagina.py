@@ -170,7 +170,7 @@ def gerar():
            ".intro{display:block;margin:0 0 1.2rem}.intro a{display:inline}.ph i{display:block;width:100%;height:100%;background:var(--foam)}"
            ".tg{font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}"
            ".np strong{font-weight:500;font-size:.92rem;line-height:1.3;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}"
-           ".pr{font-weight:600;color:var(--brass)}.np em{font-style:normal;font-size:.85rem;color:var(--link);margin-top:auto}"
+           ".pr{font:400 .95rem var(--mono);font-variant-numeric:tabular-nums;color:var(--brass)}.np em{font-style:normal;font-size:.85rem;color:var(--link);margin-top:auto}"
            ".hid{display:none!important}"
            "@media (max-width:480px){.grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:.7rem}}")
     js = ("document.querySelectorAll('.ph.sl').forEach(ph=>{const im=[...ph.querySelectorAll('img')],dt=[...ph.querySelectorAll('.dots u')];let i=0,t=null,x=null,sw=false;"
