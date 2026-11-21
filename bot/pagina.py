@@ -21,12 +21,13 @@ MES = ["janeiro", "fevereiro", "março", "abril", "maio", "junho", "julho", "ago
 # Ícone e cor de cada tipo nos filtros (cores da família do calendário)
 ESTILO_TIPO = {"Figuras": ("🎎", "#6b3fa0"), "Peluches": ("🧸", "#b23a2e"), "Blind Boxes": ("🎁", "#b8860b"),
                "Model Kits": ("🤖", "#4d5a66"), "TCG": ("🃏", "#1f6f8b"), "Acessórios": ("🛡️", "#2c6fd1"),
-               "RPG e Livros": ("📚", "#8a5a2b"), "Miniaturas": ("⚔️", "#a8781a"), "Outros": ("✨", "#46677a")}
+               "RPG e Livros": ("📚", "#8a5a2b"), "Miniaturas": ("⚔️", "#a8781a"), "Bilhetes": ("🎟️", "#2a8a6e"), "Outros": ("✨", "#46677a")}
 # Ordem dos filtros na página
-ORDEM = ["TCG", "Acessórios", "Figuras", "Model Kits", "Miniaturas", "Blind Boxes", "Peluches", "RPG e Livros", "Outros"]
+ORDEM = ["TCG", "Acessórios", "Figuras", "Model Kits", "Miniaturas", "Blind Boxes", "Peluches", "Bilhetes", "RPG e Livros", "Outros"]
 
 # Tipo do produto a partir do nome (ordem importa: o primeiro que bater ganha)
 TIPOS = [
+    ("Bilhetes", r"\b(bilhetes?|tickets?)\b"),
     ("Miniaturas", r"\b(miniaturas?|gundam assemble|warhammer|citadel|wizkids|nolzur|reaper|wargam)"),
     ("Peluches", r"\b(plush|peluche)"),
     ("Blind Boxes", r"\b(blind ?box|gashapon|capsule|mystery|caixa surpresa|trading figure)"),
@@ -104,6 +105,7 @@ def concha():
 
 def gerar():
     dados = carregar()
+    for d in dados: d["tipo"] = tipo(d["nome"])  # regras novas aplicam-se também aos produtos antigos
     limite = dt.datetime.now(dt.timezone.utc) - dt.timedelta(days=DIAS_PAGINA)
     vis = [d for d in dados if dt.datetime.fromisoformat(d["data"]).astimezone(dt.timezone.utc) >= limite]
     grupos, ordem = {}, []
