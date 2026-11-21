@@ -13,8 +13,8 @@ DISCORD = "https://discord.com/channels/685894659855220743/1573781369597861978"
 AQUI = os.path.dirname(os.path.abspath(__file__))
 LOJA = "https://www.weatherlightgames.pt"
 DADOS = os.path.join(RAIZ, "dados.json")
-DIAS_PAGINA = 42          # a página mostra as últimas 6 semanas
-MAX_DADOS = 400           # o ficheiro guarda no máximo 400 produtos
+DIAS_PAGINA = 28          # a página inicial mostra as últimas 4 semanas (o resto fica no arquivo)
+MAX_DADOS = 3000          # o ficheiro guarda no máximo 3000 produtos (alimenta o arquivo por mês)
 SEM = ["segunda-feira", "terça-feira", "quarta-feira", "quinta-feira", "sexta-feira", "sábado", "domingo"]
 MES = ["janeiro", "fevereiro", "março", "abril", "maio", "junho", "julho", "agosto", "setembro", "outubro", "novembro", "dezembro"]
 
@@ -165,7 +165,8 @@ CSS = (".np{display:flex;flex-direction:column;gap:.4rem;background:var(--paper)
        ".dia{margin:0 0 2rem}.dia h2{font:500 1.4rem/1.1 var(--display);text-transform:uppercase;letter-spacing:.03em;margin:0 0 .6rem;display:flex;align-items:baseline;gap:.6rem;flex-wrap:wrap}"
        ".dia h2 small{font:400 .85rem var(--mono);color:var(--muted);letter-spacing:.04em}"
        ".lede a{color:var(--hd-ink)}.f .ic{font-size:1.25rem;line-height:1}.flt{margin:0 0 1.6rem}.help{margin:0 0 1.6rem}"
-       ".hid{display:none!important}.subs{margin-top:2.5rem}"
+       ".hid{display:none!important}.subs{margin-top:2.5rem}.ver{margin:.4rem 0 0}"
+       ".np .evl{font-size:.8rem;color:var(--link);text-decoration:none}.np .evl:hover{text-decoration:underline}"
        ".guia h2 .ic{margin-right:.35rem}.guia .ver{margin:.8rem 0 0}"
        "@media (max-width:640px){.f{flex-direction:column;gap:.1rem;height:3.5rem;line-height:1.1;text-align:center}.f .ic{font-size:1.05rem}}"
        "@media (max-width:480px){.grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:.6rem}.np{padding:.55rem}}")
@@ -186,29 +187,37 @@ JS_FILTROS = ("const fb=[...document.querySelectorAll('.f')],box=document.queryS
               "const h=decodeURIComponent(location.hash.slice(1));const hb=fb.find(b=>b.dataset.t===h);if(hb){hb.setAttribute('aria-pressed','true');apl()}")
 
 
-def casca(titulo, desc, url, cabecalho, corpo, ld=None, og="", js=""):
+def casca(titulo, desc, url, cabecalho, corpo, ld=None, og="", js="", lingua="pt", alt=None):
     ld_txt = f'<script type="application/ld+json">{json.dumps(ld, ensure_ascii=False)}</script>\n' if ld else ""
-    rodape = (f'<footer>\n  <div class="wrap">\n'
+    alt_txt = "".join(f'<link rel="alternate" hreflang="{k}" href="{v}">\n' for k, v in (alt or {}).items())
+    if lingua == "en":
+        rodape = (f'<footer>\n  <div class="wrap">\n'
+                  f'    <p class="close">Questions? Send us an e-mail ({contacto()}) or a message on <a href="{INSTAGRAM}"{NOVA}>Instagram</a>. 👾</p>\n'
+                  f'    <p class="close">Rather see it in person? We have a <a href="{loja_ld().get("hasMap", "")}"{NOVA}>whole shop waiting for you</a> in Évora — come and visit ☁️</p>\n'
+                  f'    <p class="close hor">🕒 Opening hours: Wednesday and Friday 3 pm – 11 pm · Thursday, Saturday and Sunday 3 pm – 8:30 pm · Closed on Monday and Tuesday</p></div>\n</footer>')
+    else:
+      rodape = (f'<footer>\n  <div class="wrap">\n'
               f'    <p class="close">Tens dúvidas? Vê a página da <a href="/primeira-compra/">primeira compra</a>, a <a href="{CA}"{NOVA}>Central de Ajuda</a> '
               f'ou junta-te à nossa comunidade no <a href="{CONVITE}"{NOVA}>Discord</a>! 👾</p>\n'
               f'    <p class="close">Preferes ver ao vivo? Temos uma <a href="{loja_ld().get("hasMap", "")}"{NOVA}>loja inteira ao teu dispor</a> em Évora — vem visitar-nos ☁️</p>\n'
               f'  {ler("horario.html", HORARIO_PADRAO).strip()}</div>\n</footer>')
     og_tag = f'<meta property="og:image" content="{html.escape(og)}">\n' if og else ""
     return f"""<!doctype html>
-<html lang="pt">
+<html lang="{"en" if lingua == "en" else "pt"}">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>{html.escape(titulo)}</title>
 <meta name="description" content="{html.escape(desc)}">
 <link rel="canonical" href="{url}">
+{alt_txt}
 <link rel="alternate" type="application/rss+xml" title="Novidades Weatherlight" href="{BASE}/feed.xml">
 <link rel="manifest" href="/manifest.webmanifest">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <meta name="theme-color" content="#ffffff">
 <meta name="apple-mobile-web-app-title" content="Novidades WL">
-<meta property="og:type" content="website"><meta property="og:locale" content="pt_PT"><meta property="og:site_name" content="Weatherlight Games &amp; Collectibles">
+<meta property="og:type" content="website"><meta property="og:locale" content="{"en_GB" if lingua == "en" else "pt_PT"}"><meta property="og:site_name" content="Weatherlight Games &amp; Collectibles">
 <meta property="og:title" content="{html.escape(titulo.split(' | ')[0])}"><meta property="og:description" content="{html.escape(desc)}"><meta property="og:url" content="{url}">
 {og_tag}{ld_txt}{concha().strip()}
 <style>{CSS}</style>
@@ -273,7 +282,7 @@ def primeira_compra(ld_loja):
             ("Fazem pré-encomendas de figuras?", "De momento não temos um sistema de pré-encomendas para figuras. Se procuras uma figura específica, fala connosco: analisamos a disponibilidade e se há forma de a encomendar."),
             ("Vendem cartas soltas (Singles) ou compram coleções?", "Não. De momento não vendemos Singles, nem na loja nem online, e não compramos cartas individuais nem coleções."),
             ("Podem ajudar-me a escolher?", "Claro! Seja o teu primeiro TCG, a tua primeira figura ou um presente, ajudamos de acordo com o teu orçamento e os teus gostos. Passa pela loja ou fala connosco."),
-            ("Ainda tenho dúvidas. Como vos contacto?", f"Escreve-nos ({c}), liga para o {TELEFONE} ou fala connosco no <a href=\"{CONVITE}\"{NOVA}>Discord</a>."),
+            ("Ainda tenho dúvidas. Como vos contacto?", f"Escreve-nos por e-mail ({c}) ou manda-nos uma mensagem no <a href=\"{INSTAGRAM}\"{NOVA}>Instagram</a>."),
         ]) + f'<p class="m small">Lê também a <a href="{LOJA}/page/politica-de-entrega"{NOVA}>Política de Entrega</a>, a <a href="{LOJA}/page/politica-de-devolucao"{NOVA}>Política de Devolução</a> e os <a href="{LOJA}/page/termos-e-condicoes"{NOVA}>Termos e Condições</a>.</p></section>')
     desc = ("Como comprar na Weatherlight, loja de hobby em Évora (Alentejo, Portugal): métodos de pagamento, envios para todo o país "
             "(DHL no Continente, CTT Expresso nas ilhas), levantamento grátis na loja, devoluções e trocas.")
@@ -367,41 +376,162 @@ def guia(ld_loja):
     return url
 
 
+
+# ---------------- peças comuns (cartões, filtros, dias) ----------------
+UTM = "utm_source=novidades&utm_medium=site&utm_campaign=novidades"
+# Página do jogo no calendário de eventos, a partir do nome do produto
+JOGOS = [(r"one piece", "One Piece", "one-piece"), (r"pok[eé]mon", "Pokémon", "pokemon"), (r"magic", "Magic", "magic"),
+         (r"yu-?gi-?oh", "Yu-Gi-Oh!", "yu-gi-oh"), (r"riftbound", "Riftbound", "riftbound"), (r"digimon", "Digimon", "digimon"),
+         (r"gundam assemble", "Gundam Assemble", "gundam-assemble"), (r"gundam card game", "Gundam", "gundam"),
+         (r"cyberpunk", "Cyberpunk", "cyberpunk")]
+TIPO_EN = {"TCG": "TCG", "Acessórios": "Accessories", "Figuras": "Figures", "Model Kits": "Model Kits", "Miniaturas": "Miniatures",
+           "TTRPGs": "TTRPGs", "Blind Boxes": "Blind Boxes", "Peluches": "Plushies", "Bilhetes": "Tickets", "Outros": "Other"}
+DIA_EN = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+MES_EN = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+
+
+def loja_url(u, fonte=UTM):
+    """Link para a loja com a marca de origem (para a Shopkit mostrar as visitas que vêm daqui)."""
+    return u + ("&" if "?" in u else "?") + fonte
+
+
+def jogo(d):
+    if d["tipo"] not in ("TCG", "Miniaturas"): return None
+    n = d["nome"].lower()
+    for rx, nome, pasta in JOGOS:
+        if re.search(rx, n): return nome, f"{EVENTOS}/{pasta}/"
+    return None
+
+
+def card(d, en=False):
+    fs = fotos(d); alt = html.escape(d["nome"]); u = html.escape(loja_url(d["url"]))
+    img = "".join(f'<img src="{html.escape(quadrado(x))}" alt="{alt if i == 0 else ""}" loading="lazy"{" class=on" if i == 0 else ""}>'
+                  for i, x in enumerate(fs)) or '<i></i>'
+    if len(fs) > 1: img += '<b class="dots">' + "<u></u>" * len(fs) + "</b>"
+    cor = ESTILO_TIPO.get(d["tipo"], ("", "var(--muted)"))[1]
+    j = jogo(d)
+    ev = ""
+    if j: ev = f'<a class="evl" href="{j[1]}"{NOVA}>📅 ' + (f'{html.escape(j[0])} events' if en else f'Eventos de {html.escape(j[0])}') + '</a>'
+    return (f'<article class="np" data-t="{html.escape(d["tipo"])}">'
+            f'<a class="phl" href="{u}"{NOVA} tabindex="-1" aria-hidden="true"><span class="ph{" sl" if len(fs) > 1 else ""}">{img}</span></a>'
+            f'<span class="tg"><span class="chip" style="color:{cor}">{html.escape(TIPO_EN.get(d["tipo"], d["tipo"]) if en else d["tipo"])}</span></span>'
+            f'<a class="nm" href="{u}"{NOVA}><strong>{alt}</strong></a>'
+            f'<span class="price">{preco(d.get("preco"))}</span>{ev}'
+            f'<a class="insc" href="{u}"{NOVA}>{"View in shop" if en else "Ver na loja"} <span>↗</span></a></article>')
+
+
+def filtros_html(lista, en=False):
+    presentes = [t for t in ORDEM if any(d["tipo"] == t for d in lista)]
+    t1, t2, todos = (("Filter by category", "you can pick several", "All") if en
+                     else ("Filtra por categoria", "podes escolher várias", "Todas"))
+    return (f'<div class="flt"><p class="flt-t">{t1} <span>· {t2}</span></p>'
+            f'<div class="filters" role="group" aria-label="{t1} ({t2})">'
+            f'<button type="button" class="f f-all" data-t="all" aria-pressed="true"><img src="/logos/wl.webp" alt="" width="139" height="160">{todos}</button>'
+            + "".join(f'<button type="button" class="f" data-t="{html.escape(t)}" aria-pressed="false" style="--gc:{ESTILO_TIPO[t][1]}">'
+                      f'<span class="ic" aria-hidden="true">{ESTILO_TIPO[t][0]}</span>{html.escape(TIPO_EN.get(t, t) if en else t)}</button>' for t in presentes)
+            + '</div></div>')
+
+
+def dias_html(lista, en=False):
+    grupos, ordem = {}, []
+    for d in lista:
+        k = lisboa(d["data"]).date()
+        if k not in grupos: grupos[k] = []; ordem.append(k)
+        grupos[k].append(d)
+
+    def titulo(k):
+        if en: return f'<span>{DIA_EN[k.weekday()]}</span> <small>{MES_EN[k.month - 1]} {k.day}</small>'
+        return f'<span>{SEM[k.weekday()].capitalize()}</span> <small>{k.day} de {MES[k.month - 1]}</small>'
+    return "".join(f'<section class="dia"><h2>{titulo(k)}</h2><div class="grid">{"".join(card(d, en) for d in grupos[k])}</div></section>'
+                   for k in ordem)
+
+
+def produto_ld(d, ld_loja):
+    x = {"@type": "Product", "name": d["nome"], "url": d["url"], "image": fotos(d)[:3] or None,
+         "brand": {"@type": "Brand", "name": d["marca"]} if d.get("marca") else None, "gtin13": d.get("gtin") or None,
+         "offers": {"@type": "Offer", "price": d.get("preco"), "priceCurrency": "EUR", "url": d["url"],
+                    "seller": {"@id": ld_loja["@id"]}} if d.get("preco") is not None else None}
+    return {k: v for k, v in x.items() if v}
+
+
+# ---------------- arquivo por mês ----------------
+def arquivo(dados, ld_loja):
+    meses = {}
+    for d in dados:
+        k = lisboa(d["data"]).strftime("%Y-%m")
+        meses.setdefault(k, []).append(d)
+    urls, linhas = [], []
+    for k in sorted(meses, reverse=True):
+        ano, m = int(k[:4]), int(k[5:])
+        nome = f"{MES[m - 1].capitalize()} de {ano}"
+        lista = meses[k]
+        url = f"{BASE}/arquivo/{k}/"
+        tipos = [t for t in ORDEM if any(d["tipo"] == t for d in lista)]
+        corpo = (filtros_html(lista) + "\n" + dias_html(lista) +
+                 f'\n<p class="ver"><a class="insc" href="/arquivo/">← Todos os meses</a></p>')
+        ld = {"@context": "https://schema.org", "@graph": [ld_loja, {
+            "@type": "CollectionPage", "name": f"Novidades Weatherlight — {nome}", "url": url, "inLanguage": "pt-PT",
+            "about": {"@id": ld_loja["@id"]},
+            "mainEntity": {"@type": "ItemList", "itemListElement": [{"@type": "ListItem", "position": i + 1, "item": produto_ld(d, ld_loja)}
+                                                                    for i, d in enumerate(lista[:100])]}}]}
+        desc = (f"Os produtos que chegaram à Weatherlight, em Évora (Alentejo, Portugal), em {nome.lower()}: "
+                + ", ".join(tipos) + ".")
+        escrever(f"arquivo/{k}/index.html", casca(f"Novidades de {nome} | Weatherlight, Évora", desc, url,
+                 cab_pagina(f"Novidades de {nome}", f"{len(lista)} produtos chegaram à Weatherlight este mês", f'<a href="/arquivo/">Arquivo</a> › {nome}'),
+                 corpo, ld, js=JS_FOTOS + JS_FILTROS))
+        urls.append(url)
+        linhas.append(f'<a href="/arquivo/{k}/"><strong>{nome}</strong><span>{len(lista)} produtos · {", ".join(tipos[:4])}</span></a>')
+    url = f"{BASE}/arquivo/"
+    corpo = (f'<nav class="help" aria-label="Meses">{"".join(linhas)}</nav>' if linhas
+             else '<section class="box"><p class="m">Ainda não há meses no arquivo.</p></section>')
+    escrever("arquivo/index.html", casca("Arquivo de novidades | Weatherlight, Évora", "Todas as novidades da Weatherlight, em Évora, mês a mês.", url,
+             cab_pagina("Arquivo de novidades", "Tudo o que chegou à Weatherlight, mês a mês", "Arquivo"), corpo,
+             {"@context": "https://schema.org", "@graph": [ld_loja]}))
+    return [url] + urls
+
+
+# ---------------- versão em inglês ----------------
+def ingles(vis, ld_loja):
+    url = f"{BASE}/en/"
+    end = ld_loja.get("address", {})
+    mapa = ld_loja.get("hasMap", "")
+    cab = (f'<header class="home">\n  <div class="wrap">\n    <span class="eyebrow">Updated every hour · Évora, Portugal</span>\n'
+           f'    <h1>Weatherlight <em>New Arrivals</em></h1>\n'
+           f'    <p class="sub">The latest products at Weatherlight, your hobby shop in Évora, Alentejo</p>\n'
+           f'    <p class="lede">Trading Card Games, accessories, anime figures, Model Kits, miniatures, TTRPGs, blind boxes and plushies: everything that arrives at Weatherlight shows up here on the same day. Find it in our <a href="{loja_url(LOJA + "/")}"{NOVA}>online shop</a> or at the shop in Évora.</p>\n'
+           f'    <div class="info"><span>{html.escape(end.get("streetAddress", ""))}, {html.escape(end.get("postalCode", ""))} Évora</span>'
+           f'<a href="{mapa}"{NOVA}>📍 Map</a><a href="{INSTAGRAM}"{NOVA}>Instagram</a><a href="{EVENTOS}/en/"{NOVA}>📅 Events (English)</a>'
+           f'<a href="/" hreflang="pt" lang="pt">🇵🇹 Português</a></div>\n  </div>\n</header>')
+    visita = ('<section class="box"><h2>Visiting from abroad?</h2><ul class="dates">'
+              '<li><span>Shop</span><span>Come in and browse, or ask us about anything you saw online</span></li>'
+              '<li><span>Pick-up in store</span><span>Order online and choose “Levantamento em Loja” to collect it for free</span></li>'
+              '<li><span>Payment</span><span>Credit card, Multibanco, MB WAY, PayPal, digital wallet or bank transfer</span></li>'
+              '<li><span>Shipping</span><span>Within Portugal: DHL to the mainland, CTT Expresso to the Azores and Madeira</span></li>'
+              '<li><span>Language</span><span>We all speak English, so just ask!</span></li></ul>'
+              f'<p class="m small">{html.escape(end.get("streetAddress", ""))}, Évora · <a href="{mapa}"{NOVA}>Open in Maps</a> · Questions: {contacto()}</p></section>')
+    corpo = (f"    {filtros_html(vis, True)}\n    {dias_html(vis, True) or '<section class=box><p class=m>New products show up here as soon as they arrive.</p></section>'}\n    {visita}\n"
+             f'    <p class="ver"><a class="insc" href="/arquivo/">📦 Older arrivals (Portuguese archive) →</a></p>')
+    desc = ("New arrivals at Weatherlight, a hobby shop in Évora (Alentejo, Portugal): trading card games, anime figures, Gunpla, "
+            "miniatures, blind boxes and more. Updated every hour.")
+    ld = {"@context": "https://schema.org", "@graph": [ld_loja, {
+        "@type": "CollectionPage", "name": "Weatherlight New Arrivals — Évora, Portugal", "url": url, "inLanguage": "en",
+        "about": {"@id": ld_loja["@id"]},
+        "mainEntity": {"@type": "ItemList", "itemListElement": [{"@type": "ListItem", "position": i + 1, "item": produto_ld(d, ld_loja)}
+                                                                for i, d in enumerate(vis[:50])]}}]}
+    og = next((quadrado(fotos(d)[0]) for d in vis if fotos(d)), "")
+    escrever("en/index.html", casca("Weatherlight New Arrivals | Évora, Portugal", desc, url, cab, corpo, ld, og, JS_FOTOS + JS_FILTROS,
+                                    lingua="en", alt={"pt": f"{BASE}/", "en": url}))
+    return url
+
+
 # ---------------- página principal ----------------
 def gerar():
     dados = carregar()
     for d in dados: d["tipo"] = tipo(d["nome"])  # regras novas aplicam-se também aos produtos antigos
     limite = dt.datetime.now(dt.timezone.utc) - dt.timedelta(days=DIAS_PAGINA)
     vis = [d for d in dados if dt.datetime.fromisoformat(d["data"]).astimezone(dt.timezone.utc) >= limite]
-    grupos, ordem = {}, []
-    for d in vis:
-        k = lisboa(d["data"]).date()
-        if k not in grupos: grupos[k] = []; ordem.append(k)
-        grupos[k].append(d)
-    presentes = [t for t in ORDEM if any(d["tipo"] == t for d in vis)]
-    filtros = ('<div class="flt"><p class="flt-t">Filtra por categoria <span>· podes escolher várias</span></p>'
-               '<div class="filters" role="group" aria-label="Filtrar por categoria (podes escolher várias)">'
-               '<button type="button" class="f f-all" data-t="all" aria-pressed="true"><img src="/logos/wl.webp" alt="" width="139" height="160">Todas</button>'
-               + "".join(f'<button type="button" class="f" data-t="{html.escape(t)}" aria-pressed="false" style="--gc:{ESTILO_TIPO[t][1]}">'
-                         f'<span class="ic" aria-hidden="true">{ESTILO_TIPO[t][0]}</span>{html.escape(t)}</button>' for t in presentes)
-               + '</div></div>')
-
-    def card(d):
-        fs = fotos(d); alt = html.escape(d["nome"]); u = html.escape(d["url"])
-        img = "".join(f'<img src="{html.escape(quadrado(x))}" alt="{alt if i == 0 else ""}" loading="lazy"{" class=on" if i == 0 else ""}>'
-                      for i, x in enumerate(fs)) or '<i></i>'
-        if len(fs) > 1: img += '<b class="dots">' + "<u></u>" * len(fs) + "</b>"
-        cor = ESTILO_TIPO.get(d["tipo"], ("", "var(--muted)"))[1]
-        return (f'<article class="np" data-t="{html.escape(d["tipo"])}">'
-                f'<a class="phl" href="{u}"{NOVA} tabindex="-1" aria-hidden="true"><span class="ph{" sl" if len(fs) > 1 else ""}">{img}</span></a>'
-                f'<span class="tg"><span class="chip" style="color:{cor}">{html.escape(d["tipo"])}</span></span>'
-                f'<a class="nm" href="{u}"{NOVA}><strong>{alt}</strong></a>'
-                f'<span class="price">{preco(d.get("preco"))}</span>'
-                f'<a class="insc" href="{u}"{NOVA}>Ver na loja <span>↗</span></a></article>')
-
-    blocos = "".join(
-        f'<section class="dia"><h2><span>{SEM[k.weekday()].capitalize()}</span> <small>{k.day} de {MES[k.month - 1]}</small></h2>'
-        f'<div class="grid">{"".join(card(d) for d in grupos[k])}</div></section>' for k in ordem)
+    filtros = filtros_html(vis)
+    blocos = dias_html(vis)
     if not blocos:
         blocos = '<section class="box"><p class="m">As novidades aparecem aqui assim que chegam à loja online.</p></section>'
     url = f"{BASE}/"
@@ -411,24 +541,18 @@ def gerar():
             "Model Kits, miniaturas, TTRPGs, blind boxes e peluches acabados de chegar. Atualizado de hora a hora.")
     og = next((quadrado(fotos(d)[0]) for d in vis if fotos(d)), "")
 
-    def produto(d):
-        x = {"@type": "Product", "name": d["nome"], "url": d["url"], "image": fotos(d)[:3] or None,
-             "brand": {"@type": "Brand", "name": d["marca"]} if d.get("marca") else None, "gtin13": d.get("gtin") or None,
-             "offers": {"@type": "Offer", "price": d.get("preco"), "priceCurrency": "EUR", "url": d["url"],
-                        "seller": {"@id": ld_loja["@id"]}} if d.get("preco") is not None else None}
-        return {k: v for k, v in x.items() if v}
     ld = {"@context": "https://schema.org", "@graph": [ld_loja, {
         "@type": "CollectionPage", "name": "Novidades Weatherlight — Évora, Alentejo, Portugal", "url": url, "inLanguage": "pt-PT",
         "about": {"@id": ld_loja["@id"]}, "spatialCoverage": {"@type": "Place", "name": "Évora, Alentejo, Portugal"},
-        "mainEntity": {"@type": "ItemList", "itemListElement": [{"@type": "ListItem", "position": i + 1, "item": produto(d)}
+        "mainEntity": {"@type": "ItemList", "itemListElement": [{"@type": "ListItem", "position": i + 1, "item": produto_ld(d, ld_loja)}
                                                                 for i, d in enumerate(vis[:50])]}}]}
     cab = (f'<header class="home">\n  <div class="wrap">\n    <span class="eyebrow">Atualizado de hora a hora · Évora</span>\n'
            f'    <h1>Novidades <em>Weatherlight</em></h1>\n'
            f'    <p class="sub">Os produtos novos da Weatherlight, a tua loja de hobby em Évora, no Alentejo</p>\n'
-           f'    <p class="lede">Trading Card Games, Acessórios, Figuras de Anime, Model Kits, Miniaturas, TTRPGs, Blind Boxes e Peluches: tudo o que chega à Weatherlight aparece agora aqui, no próprio dia. Encontras na nossa <a href="{LOJA}/"{NOVA}>loja online</a> e na loja física em Évora.</p>\n'
+           f'    <p class="lede">Trading Card Games, Acessórios, Figuras de Anime, Model Kits, Miniaturas, TTRPGs, Blind Boxes e Peluches: tudo o que chega à Weatherlight aparece agora aqui, no próprio dia. Encontras na nossa <a href="{loja_url(LOJA + "/")}"{NOVA}>loja online</a> e na loja física em Évora.</p>\n'
            f'    <div class="info"><span>{html.escape(end.get("streetAddress", ""))}, {html.escape(end.get("postalCode", ""))} Évora</span><span>{TELEFONE}</span>'
-           f'<a href="{LOJA}/"{NOVA}>Loja online</a><a href="{INSTAGRAM}"{NOVA}>Instagram</a><a href="{TIKTOK}"{NOVA}>TikTok</a>'
-           f'<a href="{DISCORD}"{NOVA}>🔔 Alertas no Discord</a><a href="{EVENTOS}/"{NOVA}>📅 Eventos</a></div>\n  </div>\n</header>')
+           f'<a href="{loja_url(LOJA + "/")}"{NOVA}>Loja online</a><a href="{INSTAGRAM}"{NOVA}>Instagram</a><a href="{TIKTOK}"{NOVA}>TikTok</a>'
+           f'<a href="{DISCORD}"{NOVA}>🔔 Alertas no Discord</a><a href="{EVENTOS}/"{NOVA}>📅 Eventos</a><a href="/en/" hreflang="en" lang="en">🇬🇧 English</a></div>\n  </div>\n</header>')
     ajuda = (f'<nav class="help" aria-label="Ajuda para as primeiras compras">\n'
              f'      <a href="/primeira-compra/"><strong>Primeira compra online?</strong><span>Pagamentos, envios, levantamento em Évora e devoluções</span></a>\n'
              f'      <a href="/guia/"><strong>O que estou a comprar?</strong><span>Booster, Display, Prize Figure, HG ou RG… explicado por categoria</span></a>\n'
@@ -439,10 +563,12 @@ def gerar():
             f'      <div class="subs-t"><h2>Sabe primeiro o que chega</h2>\n'
             f'      <p>Ativa as notificações do canal ✨│novidades-wl no nosso Discord: cada produto novo é anunciado assim que chega à loja online.</p>\n'
             f'      <p class="subs-l"><a href="{DISCORD}"{NOVA}>🔔 Canal de novidades no Discord</a><a href="{INSTAGRAM}"{NOVA}>📸 Instagram</a><a href="{url}feed.xml">RSS</a></p></div></div></section>')
-    corpo = f"    {ajuda}\n    {filtros}\n    {blocos}\n    {subs}"
+    corpo = (f"    {ajuda}\n    {filtros}\n    {blocos}\n"
+             f'    <p class="ver"><a class="insc" href="/arquivo/">📦 Ver as novidades anteriores →</a></p>\n    {subs}')
     open(os.path.join(RAIZ, "index.html"), "w").write(
-        casca("Novidades Weatherlight | Évora, Alentejo, Portugal", desc, url, cab, corpo, ld, og, JS_FOTOS + JS_FILTROS))
-    urls = [url, primeira_compra(ld_loja), guia(ld_loja)]
+        casca("Novidades Weatherlight | Évora, Alentejo, Portugal", desc, url, cab, corpo, ld, og, JS_FOTOS + JS_FILTROS,
+              alt={"pt": url, "en": f"{BASE}/en/"}))
+    urls = [url, ingles(vis, ld_loja), primeira_compra(ld_loja), guia(ld_loja)] + arquivo(dados, ld_loja)
     json.dump({"name": "Novidades Weatherlight", "short_name": "Novidades WL", "start_url": "/", "display": "standalone",
                "background_color": "#ffffff", "theme_color": "#ffffff", "lang": "pt-PT",
                "icons": [{"src": "/apple-touch-icon.png", "sizes": "180x180", "type": "image/png"}]},
@@ -465,7 +591,7 @@ def gerar():
         f"# Novidades Weatherlight\n\n> Produtos que acabaram de chegar à Weatherlight Games & Collectibles, loja de hobby em Évora "
         f"(Alentejo, Portugal): Trading Card Games, acessórios, figuras de anime, Model Kits, miniaturas, TTRPGs, blind boxes e peluches. Atualizado de hora a hora.\n\n"
         f"- [Novidades Weatherlight]({url})\n- [Primeira compra: pagamentos, envios, levantamento e devoluções]({BASE}/primeira-compra/)\n"
-        f"- [Guia de produtos por categoria]({BASE}/guia/)\n- [Feed RSS]({url}feed.xml)\n- [Loja online]({LOJA}/)\n- [Calendário de eventos]({EVENTOS}/)\n\n"
+        f"- [Guia de produtos por categoria]({BASE}/guia/)\n- [Arquivo de novidades por mês]({BASE}/arquivo/)\n- [English version]({BASE}/en/)\n- [Feed RSS]({url}feed.xml)\n- [Loja online]({LOJA}/)\n- [Calendário de eventos]({EVENTOS}/)\n\n"
         "## Últimas novidades\n\n" + "".join(f"- [{d['nome']}]({d['url']}) · {preco(d.get('preco'))}\n" for d in vis[:40]))
     return url
 

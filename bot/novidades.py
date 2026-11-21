@@ -103,7 +103,7 @@ def preco_txt(p):
 
 
 def embed(d):
-    e = {"title": d["nome"][:256], "url": d["url"], "color": COR,
+    e = {"title": d["nome"][:256], "url": d["url"] + "?utm_source=discord&utm_medium=bot&utm_campaign=novidades", "color": COR,
          "footer": {"text": "Weatherlight Games & Collectibles · Évora"}}
     campos = []
     if preco_txt(d["preco"]): campos.append({"name": "Preço", "value": preco_txt(d["preco"]), "inline": True})
