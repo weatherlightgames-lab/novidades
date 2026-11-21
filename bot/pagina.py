@@ -18,6 +18,11 @@ MAX_DADOS = 400           # o ficheiro guarda no máximo 400 produtos
 SEM = ["segunda-feira", "terça-feira", "quarta-feira", "quinta-feira", "sexta-feira", "sábado", "domingo"]
 MES = ["janeiro", "fevereiro", "março", "abril", "maio", "junho", "julho", "agosto", "setembro", "outubro", "novembro", "dezembro"]
 
+# Ícone e cor de cada tipo nos filtros (cores da família do calendário)
+ESTILO_TIPO = {"Figuras": ("🎎", "#6b3fa0"), "Peluches": ("🧸", "#b23a2e"), "Blind Boxes": ("🎁", "#b8860b"),
+               "Model Kits": ("🤖", "#4d5a66"), "TCG": ("🃏", "#1f6f8b"), "Acessórios": ("🛡️", "#2c6fd1"),
+               "RPG e Livros": ("📚", "#8a5a2b"), "Outros": ("✨", "#46677a")}
+
 # Tipo do produto a partir do nome (ordem importa: o primeiro que bater ganha)
 TIPOS = [
     ("Peluches", r"\b(plush|peluche)"),
@@ -105,8 +110,12 @@ def gerar():
         grupos[k].append(d)
     tipos = [t for t, _ in TIPOS] + ["Outros"]
     presentes = [t for t in tipos if any(d["tipo"] == t for d in vis)]
-    filtros = '<button class="chip on" data-t="">Tudo</button>' + "".join(
-        f'<button class="chip" data-t="{html.escape(t)}">{html.escape(t)}</button>' for t in presentes)
+    filtros = ('<div class="flt"><p class="flt-t">Filtra por categoria <span>· podes escolher várias</span></p>'
+               '<div class="filters" role="group" aria-label="Filtrar por categoria (podes escolher várias)">'
+               '<button type="button" class="f f-all" data-t="all" aria-pressed="true"><img src="/logos/wl.webp" alt="" width="139" height="160">Todas</button>'
+               + "".join(f'<button type="button" class="f" data-t="{html.escape(t)}" aria-pressed="false" style="--gc:{ESTILO_TIPO[t][1]}">'
+                         f'<span class="ic" aria-hidden="true">{ESTILO_TIPO[t][0]}</span>{html.escape(t)}</button>' for t in presentes)
+               + '</div></div>')
 
     def card(d):
         fs = fotos(d)
@@ -142,9 +151,8 @@ def gerar():
         "about": {"@id": ld_loja["@id"]}, "spatialCoverage": {"@type": "Place", "name": "Évora, Alentejo, Portugal"},
         "mainEntity": {"@type": "ItemList", "itemListElement": [{"@type": "ListItem", "position": i + 1, "item": produto(d)}
                                                                 for i, d in enumerate(vis[:50])]}}]}
-    css = (".chips{display:flex;flex-wrap:wrap;gap:.5rem;margin:0 0 1.4rem}"
-           ".chip{font:inherit;font-size:.9rem;padding:.4rem .9rem;border-radius:999px;border:1px solid var(--line);background:#fff;color:var(--ink);cursor:pointer}"
-           ".chip.on{background:var(--ink);color:#fff;border-color:var(--ink)}"
+    css = (".f .ic{font-size:1.25rem;line-height:1}.flt{margin:0 0 1.6rem}"
+           "@media (max-width:640px){.f{flex-direction:column;gap:.1rem;height:3.5rem;line-height:1.1;text-align:center}.f .ic{font-size:1.05rem}}"
            ".dia{margin:0 0 2rem}.dia h2{font-size:1.05rem;letter-spacing:.06em;text-transform:uppercase;margin:0 0 .8rem}"
            ".grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:1rem}"
            ".np{display:flex;flex-direction:column;gap:.35rem;background:#fff;border:1px solid var(--line);border-radius:12px;padding:.7rem;color:inherit;text-decoration:none;transition:transform .15s,box-shadow .15s}"
@@ -165,9 +173,13 @@ def gerar():
           "ph.addEventListener('touchstart',e=>{x=e.touches[0].clientX;sw=false},{passive:true});"
           "ph.addEventListener('touchend',e=>{const d=e.changedTouches[0].clientX-x;if(Math.abs(d)>30){sw=true;ir(i+(d<0?1:-1))}});"
           "ph.closest('a').addEventListener('click',e=>{if(sw){e.preventDefault();sw=false}})});"
-          "document.querySelectorAll('.chip').forEach(b=>b.onclick=()=>{document.querySelectorAll('.chip').forEach(x=>x.classList.toggle('on',x===b));"
-          "const t=b.dataset.t;document.querySelectorAll('.np').forEach(c=>c.classList.toggle('hid',!!t&&c.dataset.t!==t));"
-          "document.querySelectorAll('.dia').forEach(s=>s.classList.toggle('hid',!s.querySelector('.np:not(.hid)')))});")
+          "const fb=[...document.querySelectorAll('.f')],box=document.querySelector('.filters');"
+          "const apl=()=>{const sel=fb.filter(b=>b.dataset.t!=='all'&&b.getAttribute('aria-pressed')==='true').map(b=>b.dataset.t);"
+          "fb.find(b=>b.dataset.t==='all')?.setAttribute('aria-pressed',sel.length?'false':'true');box&&box.classList.toggle('sel',sel.length>0);"
+          "document.querySelectorAll('.np').forEach(c=>c.classList.toggle('hid',sel.length>0&&!sel.includes(c.dataset.t)));"
+          "document.querySelectorAll('.dia').forEach(s=>s.classList.toggle('hid',!s.querySelector('.np:not(.hid)')))};"
+          "fb.forEach(b=>b.onclick=()=>{if(b.dataset.t==='all')fb.forEach(x=>x.setAttribute('aria-pressed','false'));"
+          "else b.setAttribute('aria-pressed',b.getAttribute('aria-pressed')==='true'?'false':'true');apl()});")
     page = f"""<!doctype html>
 <html lang="pt">
 <head>
@@ -187,18 +199,18 @@ def gerar():
 <style>{css}</style>
 </head>
 <body>
-<header>
+<header class="home">
   <div class="wrap">
-    <span class="crumbs"><a href="{LOJA}/">Weatherlight Games &amp; Collectibles</a> › Évora, Alentejo</span>
-    <h1>Novidades Weatherlight</h1>
+    <span class="eyebrow">Atualizado de hora a hora · Évora</span>
+    <h1>Novidades <em>Weatherlight</em></h1>
     <p class="sub">Os produtos novos da Weatherlight, a tua loja de hobby em Évora, no Alentejo</p>
+    <p class="lede">Figuras de anime, TCG, blind boxes, Gunpla e peluches: tudo o que chega à loja aparece aqui no próprio dia, na loja online e na loja física em Évora.</p>
     <div class="info"><a href="{LOJA}/" target="_blank" rel="noopener">🛒 Loja online</a><a href="{DISCORD}" target="_blank" rel="noopener">🔔 Alertas no Discord</a><a href="{EVENTOS}/">📅 Eventos e torneios</a><a href="{html.escape(ld_loja.get("hasMap", ""))}" target="_blank" rel="noopener">📍 Mapa</a><a href="https://www.instagram.com/weatherlightgames/" target="_blank" rel="noopener">Instagram</a><a href="{url}feed.xml">RSS</a></div>
   </div>
 </header>
 <main>
   <div class="wrap">
-    <p class="intro">Figuras de anime, cartas de TCG, blind boxes, Gunpla e peluches: tudo o que chega à Weatherlight aparece aqui, no próprio dia. Encontras na nossa <a href="{LOJA}/" target="_blank" rel="noopener">loja online</a> e na loja física em Évora.</p>
-    <div class="chips">{filtros}</div>
+    {filtros}
     {blocos}
     <p class="m small">Atualizado automaticamente de hora a hora. Preços e stock confirmados na loja online.</p>
   </div>
