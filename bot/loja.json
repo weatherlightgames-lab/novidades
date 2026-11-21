@@ -1,0 +1,43 @@
+{
+ "@type": "GameStore",
+ "name": "Weatherlight Games & Collectibles",
+ "alternateName": "Weatherlight",
+ "url": "https://www.weatherlightgames.pt/",
+ "logo": "https://cdn-shopkit.com/usercontent/weatherlightgames/media/images/6caa56f-180700-logo-weatherlight_site_actualizado_nome_4.jpg",
+ "telephone": "+351266735119",
+ "email": "weatherlightgames@gmail.com",
+ "address": {
+  "@type": "PostalAddress",
+  "streetAddress": "Rua Frei José Maria Évora, Nº2",
+  "postalCode": "7005-495",
+  "addressLocality": "Évora",
+  "addressRegion": "Évora",
+  "addressCountry": "PT"
+ },
+ "areaServed": [
+  {
+   "@type": "City",
+   "name": "Évora"
+  },
+  {
+   "@type": "AdministrativeArea",
+   "name": "Alentejo"
+  }
+ ],
+ "hasMap": "https://maps.app.goo.gl/GnKdFUwrm1J6o46P9",
+ "currenciesAccepted": "EUR",
+ "sameAs": [
+  "https://www.instagram.com/weatherlightgames/",
+  "https://www.facebook.com/weatherlightgames",
+  "https://www.tiktok.com/@weatherlightcollectibles",
+  "https://www.youtube.com/@weatherlightgames",
+  "https://discord.gg/HTCZeJZuVk"
+ ],
+ "openingHours": [
+  "We 15:00-23:00",
+  "Th 15:00-20:30",
+  "Fr 15:00-23:00",
+  "Sa 15:00-20:30",
+  "Su 15:00-20:30"
+ ]
+}

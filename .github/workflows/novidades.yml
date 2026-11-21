@@ -1,0 +1,50 @@
+name: Novidades
+
+on:
+  schedule:
+    - cron: "17 * * * *"   # de hora a hora, ao minuto 17
+  workflow_dispatch:
+    inputs:
+      teste:
+        description: "URL(s) de produto para anunciar já no Discord (e juntar ao site), separados por espaço."
+        required: false
+        default: ""
+      adicionar:
+        description: "URL(s) de produto para juntar só ao site, sem anunciar no Discord."
+        required: false
+        default: ""
+
+permissions:
+  contents: write
+
+concurrency:
+  group: novidades
+  cancel-in-progress: false
+
+jobs:
+  novidades:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Procurar produtos novos
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+          TESTE: ${{ github.event.inputs.teste }}
+          ADICIONAR: ${{ github.event.inputs.adicionar }}
+        run: |
+          if [ -n "$TESTE" ]; then
+            python3 bot/novidades.py bot/vistos.json --teste $TESTE
+          elif [ -n "$ADICIONAR" ]; then
+            python3 bot/novidades.py bot/vistos.json --adicionar $ADICIONAR
+          else
+            python3 bot/novidades.py bot/vistos.json
+          fi
+      - name: Publicar
+        run: |
+          git config user.name "Weatherlight Bot"
+          git config user.email "noreply@github.com"
+          git add -A -- . ':!bot/__pycache__'
+          if ! git diff --cached --quiet; then
+            git commit -m "Novidades: $(date -u +%F\ %H:%M)"
+            for i in 1 2 3; do git pull --rebase origin main && git push origin HEAD:main && break; sleep 5; done
+          fi
