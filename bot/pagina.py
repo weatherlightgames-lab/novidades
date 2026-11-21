@@ -27,10 +27,10 @@ ORDEM = ["TCG", "Acessórios", "Figuras", "Model Kits", "Miniaturas", "Blind Box
 
 # Tipo do produto a partir do nome (ordem importa: o primeiro que bater ganha)
 TIPOS = [
+    ("Miniaturas", r"\b(miniaturas?|gundam assemble|warhammer|citadel|wizkids|nolzur|reaper|wargam)"),
     ("Peluches", r"\b(plush|peluche)"),
     ("Blind Boxes", r"\b(blind ?box|gashapon|capsule|mystery|caixa surpresa|trading figure)"),
     ("Model Kits", r"\b(model kit|gunpla|gundam accessories|30 ?mm|figure-rise|kotobukiya)"),
-    ("Miniaturas", r"\b(miniaturas?|warhammer|citadel|wizkids|nolzur|reaper|wargam)"),
     ("Figuras", r"\b(figura|figure|nendoroid|figma|statue|estátua)"),
     ("Acessórios", r"\b(sleeves?|deck ?box|playmat|binder|álbum|album|portfolio|dice|dados|toploader|pages|storage|tapete)"),
     ("RPG e Livros", r"\b(daggerheart|dungeons|d&d|rpg|livro|book|manga|mangá)"),
@@ -132,7 +132,7 @@ def gerar():
                 f'<em>Ver na loja ↗</em></a>')
 
     blocos = "".join(
-        f'<section class="dia"><h2>{SEM[k.weekday()].capitalize()}, {k.day} de {MES[k.month - 1]}</h2>'
+        f'<section class="dia"><h2><span>{SEM[k.weekday()].capitalize()}</span> <small>{k.day} de {MES[k.month - 1]}</small></h2>'
         f'<div class="grid">{"".join(card(d) for d in grupos[k])}</div></section>' for k in ordem)
     if not blocos:
         blocos = '<section class="box"><p class="m">As novidades aparecem aqui assim que chegam à loja online.</p></section>'
@@ -156,7 +156,8 @@ def gerar():
                                                                 for i, d in enumerate(vis[:50])]}}]}
     css = (".lede a{color:var(--hd-ink)}.f .ic{font-size:1.25rem;line-height:1}.flt{margin:0 0 1.6rem}"
            "@media (max-width:640px){.f{flex-direction:column;gap:.1rem;height:3.5rem;line-height:1.1;text-align:center}.f .ic{font-size:1.05rem}}"
-           ".dia{margin:0 0 2rem}.dia h2{font-size:1.05rem;letter-spacing:.06em;text-transform:uppercase;margin:0 0 .8rem}"
+           ".dia{margin:0 0 2rem}.dia h2{font:500 1.4rem/1.1 var(--display);text-transform:uppercase;letter-spacing:.03em;margin:0 0 .6rem;display:flex;align-items:baseline;gap:.6rem;flex-wrap:wrap}"
+           ".dia h2 small{font:400 .85rem var(--mono);color:var(--muted);letter-spacing:.04em}"
            ".grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:1rem}"
            ".np{display:flex;flex-direction:column;gap:.35rem;background:#fff;border:1px solid var(--line);border-radius:12px;padding:.7rem;color:inherit;text-decoration:none;transition:transform .15s,box-shadow .15s}"
            ".np:hover{transform:translateY(-2px);box-shadow:0 6px 18px rgba(40,70,85,.12)}"
