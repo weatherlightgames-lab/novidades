@@ -1,6 +1,6 @@
 # novidades.weatherlightgames.pt
 
-Site "Acabou de chegar" da Weatherlight Games & Collectibles (Évora, Alentejo, Portugal) e bot que anuncia os produtos novos no Discord.
+Site "Novidades Weatherlight" da Weatherlight Games & Collectibles (Évora, Alentejo, Portugal) e bot que anuncia os produtos novos no Discord.
 
 ## Como funciona
 - De hora a hora (ao minuto 17) o workflow **Novidades** (`.github/workflows/novidades.yml`) corre `bot/novidades.py`:

@@ -1,4 +1,4 @@
-"""Site novidades.weatherlightgames.pt: página "Acabou de chegar", feed RSS, sitemap e robots.
+"""Site novidades.weatherlightgames.pt: página "Novidades Weatherlight", feed RSS, sitemap e robots.
 
 Lê dados.json (escrito pelo bot de novidades sempre que deteta produtos novos) e gera index.html com o
 mesmo visual do calendário de eventos (fontes e estilos guardados em bot/estilo.html; dados da loja em bot/loja.json).
@@ -138,7 +138,7 @@ def gerar():
                         "seller": {"@id": ld_loja["@id"]}} if d.get("preco") is not None else None}
         return {k: v for k, v in x.items() if v}
     ld = {"@context": "https://schema.org", "@graph": [ld_loja, {
-        "@type": "CollectionPage", "name": "Acabou de chegar — Weatherlight, Évora", "url": url, "inLanguage": "pt-PT",
+        "@type": "CollectionPage", "name": "Novidades Weatherlight — Évora, Alentejo, Portugal", "url": url, "inLanguage": "pt-PT",
         "about": {"@id": ld_loja["@id"]}, "spatialCoverage": {"@type": "Place", "name": "Évora, Alentejo, Portugal"},
         "mainEntity": {"@type": "ItemList", "itemListElement": [{"@type": "ListItem", "position": i + 1, "item": produto(d)}
                                                                 for i, d in enumerate(vis[:50])]}}]}
@@ -173,11 +173,11 @@ def gerar():
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Acabou de chegar: novidades da Weatherlight | Évora, Alentejo, Portugal</title>
+<title>Novidades Weatherlight | Évora, Alentejo, Portugal</title>
 <meta name="description" content="{html.escape(desc)}">
 <link rel="canonical" href="{url}">
 <link rel="alternate" type="application/rss+xml" title="Novidades Weatherlight" href="{url}feed.xml">
-<meta property="og:type" content="website"><meta property="og:locale" content="pt_PT"><meta property="og:site_name" content="Weatherlight Games &amp; Collectibles"><meta property="og:title" content="Acabou de chegar — Weatherlight, Évora">
+<meta property="og:type" content="website"><meta property="og:locale" content="pt_PT"><meta property="og:site_name" content="Weatherlight Games &amp; Collectibles"><meta property="og:title" content="Novidades Weatherlight — Évora, Alentejo">
 <meta property="og:description" content="{html.escape(desc)}"><meta property="og:url" content="{url}">
 {f'<meta property="og:image" content="{html.escape(og)}">' if og else ''}
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
@@ -190,7 +190,7 @@ def gerar():
 <header>
   <div class="wrap">
     <span class="crumbs"><a href="{LOJA}/">Weatherlight Games &amp; Collectibles</a> › Évora, Alentejo</span>
-    <h1>Acabou de chegar</h1>
+    <h1>Novidades Weatherlight</h1>
     <p class="sub">Os produtos novos da Weatherlight, a tua loja de hobby em Évora, no Alentejo</p>
     <div class="info"><a href="{LOJA}/" target="_blank" rel="noopener">🛒 Loja online</a><a href="{DISCORD}" target="_blank" rel="noopener">🔔 Alertas no Discord</a><a href="{EVENTOS}/">📅 Eventos e torneios</a><a href="{html.escape(ld_loja.get("hasMap", ""))}" target="_blank" rel="noopener">📍 Mapa</a><a href="https://www.instagram.com/weatherlightgames/" target="_blank" rel="noopener">Instagram</a><a href="{url}feed.xml">RSS</a></div>
   </div>
@@ -226,7 +226,7 @@ def gerar():
     open(os.path.join(RAIZ, "llms.txt"), "w").write(
         f"# Novidades Weatherlight\n\n> Produtos que acabaram de chegar à Weatherlight Games & Collectibles, loja de hobby em Évora "
         f"(Alentejo, Portugal): TCG, figuras de anime, blind boxes, Gunpla, peluches e acessórios. Atualizado de hora a hora.\n\n"
-        f"- [Acabou de chegar]({url})\n- [Feed RSS]({url}feed.xml)\n- [Loja online]({LOJA}/)\n- [Calendário de eventos]({EVENTOS}/)\n\n"
+        f"- [Novidades Weatherlight]({url})\n- [Feed RSS]({url}feed.xml)\n- [Loja online]({LOJA}/)\n- [Calendário de eventos]({EVENTOS}/)\n\n"
         "## Últimas novidades\n\n" + "".join(f"- [{d['nome']}]({d['url']}) · {preco(d.get('preco'))}\n" for d in vis[:40]))
     return url
 
