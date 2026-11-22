@@ -639,7 +639,7 @@ def gerar():
              f'      <a href="{GL}"{NOVA}><strong>Não conheces algum termo?</strong><span>Sleeves, Secret, Snap-Fit, Grading… está tudo no Glossário</span></a>\n'
              f'    </nav>')
     subs = (f'<section class="subs" id="alertas"><div class="subs-c">\n'
-            f'      <img class="subs-aqua" src="/img/ola.webp" alt="" width="351" height="360">\n'
+            f'      <img class="subs-aqua" src="/img/coracoes.webp" alt="" width="360" height="360">\n'
             f'      <div class="subs-t"><h2>Sabe primeiro o que chega</h2>\n'
             f'      <p>Ativa as notificações do canal ✨│novidades-wl no nosso Discord: cada produto novo é anunciado assim que chega à loja online.</p>\n'
             f'      <p class="subs-l"><a href="{DISCORD}"{NOVA}>🔔 Canal de novidades no Discord</a><a href="{INSTAGRAM}"{NOVA}>📸 Instagram</a><a href="{url}feed.xml">RSS</a></p></div></div></section>')
