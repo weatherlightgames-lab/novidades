@@ -165,7 +165,7 @@ CSS = (".np{display:flex;flex-direction:column;gap:.4rem;background:var(--paper)
        ".dia{margin:0 0 2rem}.dia h2{font:500 1.4rem/1.1 var(--display);text-transform:uppercase;letter-spacing:.03em;margin:0 0 .6rem;display:flex;align-items:baseline;gap:.6rem;flex-wrap:wrap}"
        ".dia h2 small{font:400 .85rem var(--mono);color:var(--muted);letter-spacing:.04em}"
        ".lede a{color:var(--hd-ink)}.f .ic{font-size:1.25rem;line-height:1}.flt{margin:0 0 1.6rem}.help{margin:0 0 1.6rem}"
-       ".hid{display:none!important}.subs{margin-top:2.5rem}.ver{margin:.4rem 0 0}"
+       ".hid{display:none!important}.subs{margin-top:2.5rem}.explora{margin-top:1rem}.ver{margin:.4rem 0 0}"
        ".np .evl{font-size:.8rem;color:var(--link);text-decoration:none;margin-top:.55rem}"
        ".np .nm{margin-top:.1rem}.np .price{margin-top:.15rem}.intro-cat{margin:0 0 1.6rem;max-width:46rem;color:var(--muted)}.np .evl:hover{text-decoration:underline}"
        ".guia h2 .ic{margin-right:.35rem}.guia .ver{margin:.8rem 0 0}"
@@ -531,7 +531,7 @@ def ingles(vis, ld_loja):
 CATEGORIAS = {
     "TCG": {
         "slug": "tcg", "h1": "Trading Card Games em Évora", "nome": "Trading Card Games",
-        "sub": "Boosters, Booster Boxes, Starter Decks e muito mais, na Weatherlight",
+        "sub": "Boosters, Booster Boxes, Starter Decks e muito mais, na Weatherlight, em Évora",
         "intro": "Na Weatherlight encontras alguns dos principais Trading Card Games da atualidade: Pokémon TCG, Magic: The Gathering, "
                  "One Piece Card Game, Gundam Card Game, Disney Lorcana, Yu-Gi-Oh!, Digimon Card Game, Star Wars: Unlimited, Riftbound, "
                  "Weiß Schwarz, hololive, Cyberpunk TCG e Dragon Ball Super Card Game Fusion World. Aqui ficam todas as novidades que chegam à loja, em Évora.",
@@ -546,7 +546,7 @@ CATEGORIAS = {
     },
     "Figuras": {
         "slug": "figuras", "h1": "Figuras de anime em Évora", "nome": "Figuras de Anime",
-        "sub": "Prize Figures, Scale Figures, Nendoroid e mais, na Weatherlight",
+        "sub": "Prize Figures, Scale Figures, Nendoroid e muito mais, na Weatherlight, em Évora",
         "intro": "Figuras oficiais de anime, videojogos e séries, de marcas e linhas reconhecidas internacionalmente, para quem procura a primeira "
                  "figura ou peças mais detalhadas para a coleção. Aqui ficam todas as figuras que chegam à Weatherlight, em Évora.",
         "faq": [
@@ -559,7 +559,7 @@ CATEGORIAS = {
     },
     "Model Kits": {
         "slug": "model-kits", "h1": "Model Kits e Gunpla em Évora", "nome": "Model Kits",
-        "sub": "Gunpla, Model Kits de One Piece e acessórios, na Weatherlight",
+        "sub": "Gunpla, Model Kits de One Piece e acessórios, na Weatherlight, em Évora",
         "intro": "Na Weatherlight encontras Model Kits para todos os níveis: Gunpla, inspirados no universo Mobile Suit Gundam, e os Model Kits "
                  "de One Piece, dedicados aos navios da série. Aqui ficam todos os Model Kits que chegam à loja, em Évora.",
         "faq": [
@@ -643,8 +643,12 @@ def gerar():
             f'      <div class="subs-t"><h2>Sabe primeiro o que chega</h2>\n'
             f'      <p>Ativa as notificações do canal ✨│novidades-wl no nosso Discord: cada produto novo é anunciado assim que chega à loja online.</p>\n'
             f'      <p class="subs-l"><a href="{DISCORD}"{NOVA}>🔔 Canal de novidades no Discord</a><a href="{INSTAGRAM}"{NOVA}>📸 Instagram</a><a href="{url}feed.xml">RSS</a></p></div></div></section>')
-    corpo = (f"    {ajuda}\n    {filtros}\n    {blocos}\n"
-             f'    <p class="ver"><a class="insc" href="/arquivo/">📦 Ver as novidades anteriores →</a></p>\n    {subs}')
+    expl = {"TCG": "Boosters, Booster Boxes e Starter Decks de todos os jogos", "Figuras": "Prize e Scale Figures, Nendoroid e muito mais",
+            "Model Kits": "Gunpla e Model Kits de One Piece, do EG ao MG"}
+    explora = ('<section class="sec explora"><h2>Explora por categoria</h2><nav class="help" aria-label="Categorias">'
+               + "".join(f'<a href="/{v["slug"]}/"><strong>{ESTILO_TIPO[k][0]} {v["nome"]}</strong><span>{expl.get(k, "")}</span></a>' for k, v in CATEGORIAS.items())
+               + '<a href="/arquivo/"><strong>📦 Novidades anteriores</strong><span>Tudo o que chegou à Weatherlight, mês a mês</span></a></nav></section>')
+    corpo = f"    {ajuda}\n    {filtros}\n    {blocos}\n    {explora}\n    {subs}"
     open(os.path.join(RAIZ, "index.html"), "w").write(
         casca("Novidades Weatherlight | Évora, Alentejo, Portugal", desc, url, cab, corpo, ld, og, JS_FOTOS + JS_FILTROS,
               alt={"pt": url, "en": f"{BASE}/en/"}))
