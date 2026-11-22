@@ -1,5 +1,47 @@
 [
  {
+  "url": "https://www.weatherlightgames.pt/product/pokemon-tcg-mega-forces-tin-mega-darkrai-ex-en",
+  "nome": "Pokémon TCG: Mega Forces Tin - Mega Darkrai ex - EN",
+  "preco": 34.9,
+  "imagem": "https://cdn-shopkit.com/usercontent/weatherlightgames/media/images/2946d52-084955-02_pokemon-tcg-mega-forces-tin-mega-darkrai-ex-en.jpg",
+  "imagens": [
+   "https://cdn-shopkit.com/usercontent/weatherlightgames/media/images/2946d52-084955-02_pokemon-tcg-mega-forces-tin-mega-darkrai-ex-en.jpg",
+   "https://cdn-shopkit.com/usercontent/weatherlightgames/media/images/3f55693-084919-04_pokemon-tcg-mega-forces-tin-back-en.jpg"
+  ],
+  "marca": "Pokémon TCG",
+  "gtin": null,
+  "tipo": "TCG",
+  "data": "2026-11-22T09:54+00:00"
+ },
+ {
+  "url": "https://www.weatherlightgames.pt/product/pokemon-tcg-mega-forces-tin-mega-dragonite-ex-en",
+  "nome": "Pokémon TCG: Mega Forces Tin - Mega Dragonite ex - EN",
+  "preco": 34.9,
+  "imagem": "https://cdn-shopkit.com/usercontent/weatherlightgames/media/images/50aa3c9-084923-01_pokemon-tcg-mega-forces-tin-mega-dragonite-ex-en.jpg",
+  "imagens": [
+   "https://cdn-shopkit.com/usercontent/weatherlightgames/media/images/50aa3c9-084923-01_pokemon-tcg-mega-forces-tin-mega-dragonite-ex-en.jpg",
+   "https://cdn-shopkit.com/usercontent/weatherlightgames/media/images/3f55693-084919-04_pokemon-tcg-mega-forces-tin-back-en.jpg"
+  ],
+  "marca": "Pokémon TCG",
+  "gtin": null,
+  "tipo": "TCG",
+  "data": "2026-11-22T09:54+00:00"
+ },
+ {
+  "url": "https://www.weatherlightgames.pt/product/pokemon-tcg-mega-forces-tin-mega-zeraora-ex-en",
+  "nome": "Pokémon TCG: Mega Forces Tin - Mega Zeraora ex - EN",
+  "preco": 34.9,
+  "imagem": "https://cdn-shopkit.com/usercontent/weatherlightgames/media/images/190ff6b-085031-03_pokemon-tcg-mega-forces-tin-mega-zeraora-ex-en.jpg",
+  "imagens": [
+   "https://cdn-shopkit.com/usercontent/weatherlightgames/media/images/190ff6b-085031-03_pokemon-tcg-mega-forces-tin-mega-zeraora-ex-en.jpg",
+   "https://cdn-shopkit.com/usercontent/weatherlightgames/media/images/3f55693-084919-04_pokemon-tcg-mega-forces-tin-back-en.jpg"
+  ],
+  "marca": "Pokémon TCG",
+  "gtin": null,
+  "tipo": "TCG",
+  "data": "2026-11-22T09:54+00:00"
+ },
+ {
   "url": "https://www.weatherlightgames.pt/product/hololive-official-card-game-diva-fever-hbp07-booster-box-en",
   "nome": "hololive Official Card Game - Diva Fever (hBP07) - Booster Box - EN",
   "preco": 65,
