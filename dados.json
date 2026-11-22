@@ -1,5 +1,105 @@
 [
  {
+  "url": "https://www.weatherlightgames.pt/product/gamegenic-casual-album-8-pocket-blue",
+  "nome": "Gamegenic - Casual Album 8-Pocket Blue",
+  "preco": 11,
+  "imagem": "https://cdn-shopkit.com/usercontent/weatherlightgames/media/images/d59eec0-090130-08_gamegenic-casual-album-4-pocket-blue_a.jpg",
+  "imagens": [
+   "https://cdn-shopkit.com/usercontent/weatherlightgames/media/images/d59eec0-090130-08_gamegenic-casual-album-4-pocket-blue_a.jpg",
+   "https://cdn-shopkit.com/usercontent/weatherlightgames/media/images/ef20453-090128-08_gamegenic-casual-album-4-pocket-blue_b.jpg",
+   "https://cdn-shopkit.com/usercontent/weatherlightgames/media/images/ff69a0c-090127-08_gamegenic-casual-album-4-pocket-blue_c.jpg",
+   "https://cdn-shopkit.com/usercontent/weatherlightgames/media/images/0cbc6bd-090125-08_gamegenic-casual-album-4-pocket-blue_d.jpg"
+  ],
+  "marca": "Gamegenic",
+  "gtin": "4251715404515",
+  "tipo": "Acessórios",
+  "data": "2026-11-22T19:55+00:00"
+ },
+ {
+  "url": "https://www.weatherlightgames.pt/product/gamegenic-casual-album-8-pocket-red",
+  "nome": "Gamegenic - Casual Album 8-Pocket Red",
+  "preco": 11,
+  "imagem": "https://cdn-shopkit.com/usercontent/weatherlightgames/media/images/9c85899-111218-03_album4_red_a.jpg",
+  "imagens": [
+   "https://cdn-shopkit.com/usercontent/weatherlightgames/media/images/9c85899-111218-03_album4_red_a.jpg",
+   "https://cdn-shopkit.com/usercontent/weatherlightgames/media/images/75537a4-111216-03_album4_red_b.jpg",
+   "https://cdn-shopkit.com/usercontent/weatherlightgames/media/images/b9c4a9d-111214-03_album4_red_c.jpg",
+   "https://cdn-shopkit.com/usercontent/weatherlightgames/media/images/6f44f68-111212-03_album4_red_d.jpg"
+  ],
+  "marca": "Gamegenic",
+  "gtin": "4251715404478",
+  "tipo": "Acessórios",
+  "data": "2026-11-22T19:55+00:00"
+ },
+ {
+  "url": "https://www.weatherlightgames.pt/product/gamegenic-sidekick-100-xl-black",
+  "nome": "Gamegenic - Sidekick 100+ XL - Black",
+  "preco": 19,
+  "imagem": "https://cdn-shopkit.com/usercontent/weatherlightgames/media/images/8dabf10-223802-27_gamegenic-sidekick-100-xl-black_a.jpg",
+  "imagens": [
+   "https://cdn-shopkit.com/usercontent/weatherlightgames/media/images/8dabf10-223802-27_gamegenic-sidekick-100-xl-black_a.jpg",
+   "https://cdn-shopkit.com/usercontent/weatherlightgames/media/images/dab5fac-223801-27_gamegenic-sidekick-100-xl-black_b.jpg",
+   "https://cdn-shopkit.com/usercontent/weatherlightgames/media/images/d54473e-223759-27_gamegenic-sidekick-100-xl-black_c.jpg"
+  ],
+  "marca": "Gamegenic",
+  "gtin": "4251715412862",
+  "tipo": "Outros",
+  "data": "2026-11-22T19:55+00:00"
+ },
+ {
+  "url": "https://www.weatherlightgames.pt/product/gundam-card-game-eternal-nexus-eb01-extra-booster-box-en",
+  "nome": "Gundam Card Game: Eternal Nexus (EB01) - Extra Booster Box - EN",
+  "preco": 99.9,
+  "imagem": "https://cdn-shopkit.com/usercontent/weatherlightgames/media/images/fac99cc-195234-01_gundam-card-game-eternal-nexus-eb01-extra-booster-box-en_a.jpg",
+  "imagens": [
+   "https://cdn-shopkit.com/usercontent/weatherlightgames/media/images/fac99cc-195234-01_gundam-card-game-eternal-nexus-eb01-extra-booster-box-en_a.jpg",
+   "https://cdn-shopkit.com/usercontent/weatherlightgames/media/images/4200b40-195231-01_gundam-card-game-eternal-nexus-eb01-extra-booster-box-en_b.jpg"
+  ],
+  "marca": "Gundam Card Game",
+  "gtin": "810199501314",
+  "tipo": "TCG",
+  "data": "2026-11-22T19:55+00:00"
+ },
+ {
+  "url": "https://www.weatherlightgames.pt/product/gundam-card-game-eternal-nexus-eb01-extra-booster-en",
+  "nome": "Gundam Card Game: Eternal Nexus (EB01) - Extra Booster - EN",
+  "preco": 5.5,
+  "imagem": "https://cdn-shopkit.com/usercontent/weatherlightgames/media/images/bc5f799-195305-02_gundam-card-game-eternal-nexus-eb01-extra-booster-en.jpg",
+  "imagens": [
+   "https://cdn-shopkit.com/usercontent/weatherlightgames/media/images/bc5f799-195305-02_gundam-card-game-eternal-nexus-eb01-extra-booster-en.jpg"
+  ],
+  "marca": "Gundam Card Game",
+  "gtin": "810199501307",
+  "tipo": "TCG",
+  "data": "2026-11-22T19:55+00:00"
+ },
+ {
+  "url": "https://www.weatherlightgames.pt/product/one-piece-card-game-starter-deck-baroque-works-st-38-en",
+  "nome": "One Piece Card Game: Starter Deck - Baroque Works (ST-38) - EN",
+  "preco": 18.9,
+  "imagem": "https://cdn-shopkit.com/usercontent/weatherlightgames/media/images/78ac2b4-193605-32_one-piece-card-game-starter-deck-baroque-works-st-38-en.jpg",
+  "imagens": [
+   "https://cdn-shopkit.com/usercontent/weatherlightgames/media/images/78ac2b4-193605-32_one-piece-card-game-starter-deck-baroque-works-st-38-en.jpg"
+  ],
+  "marca": "One Piece Card Game",
+  "gtin": "810199503929",
+  "tipo": "TCG",
+  "data": "2026-11-22T19:55+00:00"
+ },
+ {
+  "url": "https://www.weatherlightgames.pt/product/one-piece-card-game-starter-deck-the-desert-princess-and-the-pirates-st-37-en",
+  "nome": "One Piece Card Game: Starter Deck - The Desert Princess and the Pirates (ST-37) - EN",
+  "preco": 18.9,
+  "imagem": "https://cdn-shopkit.com/usercontent/weatherlightgames/media/images/132ff7a-193645-31_one-piece-card-game-starter-deck-the-desert-princess-and-the-pirates-st-37-en.jpg",
+  "imagens": [
+   "https://cdn-shopkit.com/usercontent/weatherlightgames/media/images/132ff7a-193645-31_one-piece-card-game-starter-deck-the-desert-princess-and-the-pirates-st-37-en.jpg"
+  ],
+  "marca": "One Piece Card Game",
+  "gtin": "810199503899",
+  "tipo": "TCG",
+  "data": "2026-11-22T19:55+00:00"
+ },
+ {
   "url": "https://www.weatherlightgames.pt/product/digimon-card-game-starter-deck-digimon-alysion-rubeusdramon-st-25-en",
   "nome": "Digimon Card Game: Starter Deck - DIGIMON ALYSION Rubeusdramon (ST-25) - EN",
   "preco": 18.9,
