@@ -1,0 +1,31 @@
+name: Capturas
+
+on:
+  workflow_dispatch:
+    inputs:
+      url:
+        description: "Página a capturar"
+        required: false
+        default: "https://novidades.weatherlightgames.pt/"
+
+permissions:
+  contents: write
+
+jobs:
+  capturas:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Instalar Playwright
+        run: |
+          pip install playwright
+          python -m playwright install --with-deps chromium
+      - name: Capturar
+        run: python ferramentas/capturas.py "${{ github.event.inputs.url }}" /tmp/capturas
+      - name: Guardar no ramo capturas
+        run: |
+          cd /tmp/capturas
+          git init -q -b capturas
+          git config user.name "Weatherlight Bot"; git config user.email "noreply@github.com"
+          git add -A && git commit -qm "Capturas $(date -u +%F\ %H:%M)"
+          git push -f "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}" capturas
