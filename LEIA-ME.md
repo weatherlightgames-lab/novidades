@@ -20,3 +20,9 @@ Site "Novidades Weatherlight" da Weatherlight Games & Collectibles (Évora, Alen
 - `bot/estilo.html`: fontes e estilos copiados do calendário de eventos (repositório `calendario`). Se o visual do calendário mudar, copiar de novo.
 - `bot/loja.json`: dados da loja para o Google (morada, telefone, horário, redes). Atualizar se algum destes mudar.
 - `nuvens.jpg`, `favicon-32.png`, `apple-touch-icon.png`: imagens do cabeçalho e ícones.
+
+## Páginas
+- `/` (últimas 4 semanas), `/en/` (inglês), `/primeira-compra/`, `/guia/`, `/arquivo/` e `/arquivo/AAAA-MM/`, e páginas por categoria (`CATEGORIAS` em `bot/pagina.py`: `/tcg/`, `/figuras/`, `/model-kits/`).
+- O calendário de eventos é a base: a cada execução, `python3 bot/pagina.py --sincronizar` copia de lá os estilos e o horário.
+- Os links para a loja levam `utm_source=novidades` (site) ou `utm_source=discord` (bot), para as estatísticas da Shopkit.
+- Execução normal sem anúncio no Discord: campo `sem_discord` no Run workflow.
