@@ -160,13 +160,14 @@ CSS = (".np{display:flex;flex-direction:column;gap:.4rem;background:var(--paper)
        ".dots{position:absolute;left:0;right:0;bottom:6px;display:flex;justify-content:center;gap:5px}"
        ".dots u{width:6px;height:6px;border-radius:50%;background:var(--line);text-decoration:none}.dots u.on{background:var(--ink)}"
        ".np .tg{display:block}.np .nm strong{font-weight:500;font-size:.95rem;line-height:1.3;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}"
-       ".np .price{color:var(--brass)}.np .insc{align-self:flex-start;margin-top:auto;font-size:.85rem}"
+       ".np .price{color:var(--brass)}"
        ".grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:.8rem}"
        ".dia{margin:0 0 2rem}.dia h2{font:500 1.4rem/1.1 var(--display);text-transform:uppercase;letter-spacing:.03em;margin:0 0 .6rem;display:flex;align-items:baseline;gap:.6rem;flex-wrap:wrap}"
        ".dia h2 small{font:400 .85rem var(--mono);color:var(--muted);letter-spacing:.04em}"
        ".lede a{color:var(--hd-ink)}.f .ic{font-size:1.25rem;line-height:1}.flt{margin:0 0 1.6rem}.help{margin:0 0 1.6rem}"
        ".hid{display:none!important}.subs{margin-top:2.5rem}.ver{margin:.4rem 0 0}"
-       ".np .evl{font-size:.8rem;color:var(--link);text-decoration:none}.np .evl:hover{text-decoration:underline}"
+       ".np .evl{font-size:.8rem;color:var(--link);text-decoration:none;margin-top:.55rem}"
+       ".np .nm{margin-top:.1rem}.np .price{margin-top:.15rem}.intro-cat{margin:0 0 1.6rem;max-width:46rem;color:var(--muted)}.np .evl:hover{text-decoration:underline}"
        ".guia h2 .ic{margin-right:.35rem}.guia .ver{margin:.8rem 0 0}"
        "@media (max-width:640px){.f{flex-direction:column;gap:.1rem;height:3.5rem;line-height:1.1;text-align:center}.f .ic{font-size:1.05rem}}"
        "@media (max-width:480px){.grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:.6rem}.np{padding:.55rem}}")
@@ -359,7 +360,7 @@ def guia(ld_loja):
         extra = f'<p class="m small">{nota}</p>' if nota else ""
         curto = titulo.split(" (")[0]
         link = (f'<p class="ver"><a class="insc" href="{EVENTOS}/"{NOVA}>📅 Ver o calendário de eventos <span>↗</span></a></p>' if chave in ("Bilhetes", "TTRPGs")
-                else f'<p class="ver"><a class="insc" href="/#{html.escape(chave)}">Ver as novidades de {curto} →</a></p>')
+                else f'<p class="ver"><a class="insc" href="{("/" + CATEGORIAS[chave]["slug"] + "/") if chave in CATEGORIAS else ("/#" + html.escape(chave))}">Ver as novidades de {curto} →</a></p>')
         secs.append(f'<section class="box faq guia" id="{ancora(chave)}"><h2><span class="ic" aria-hidden="true">{ic}</span>'
                     f'<span style="color:{cor}">{titulo}</span></h2>{faq(termos)}{extra}{link}</section>')
     indice = ('<nav class="help" aria-label="Categorias">' + "".join(
@@ -414,10 +415,10 @@ def card(d, en=False):
     if j: ev = f'<a class="evl" href="{j[1]}"{NOVA}>📅 ' + (f'{html.escape(j[0])} events' if en else f'Eventos de {html.escape(j[0])}') + '</a>'
     return (f'<article class="np" data-t="{html.escape(d["tipo"])}">'
             f'<a class="phl" href="{u}"{NOVA} tabindex="-1" aria-hidden="true"><span class="ph{" sl" if len(fs) > 1 else ""}">{img}</span></a>'
-            f'<span class="tg"><span class="chip" style="color:{cor}">{html.escape(TIPO_EN.get(d["tipo"], d["tipo"]) if en else d["tipo"])}</span></span>'
+            + (f'<span class="tg"><a class="chip" href="/{CATEGORIAS[d["tipo"]]["slug"]}/" style="color:{cor}">{html.escape(d["tipo"])}</a></span>' if (not en and d["tipo"] in CATEGORIAS)
+               else f'<span class="tg"><span class="chip" style="color:{cor}">{html.escape(TIPO_EN.get(d["tipo"], d["tipo"]) if en else d["tipo"])}</span></span>') +
             f'<a class="nm" href="{u}"{NOVA}><strong>{alt}</strong></a>'
-            f'<span class="price">{preco(d.get("preco"))}</span>{ev}'
-            f'<a class="insc" href="{u}"{NOVA}>{"View in shop" if en else "Ver na loja"} <span>↗</span></a></article>')
+            f'<span class="price">{preco(d.get("preco"))}</span>{ev}</article>')
 
 
 def filtros_html(lista, en=False):
@@ -524,6 +525,85 @@ def ingles(vis, ld_loja):
     return url
 
 
+
+
+# ---------------- páginas por categoria ----------------
+CATEGORIAS = {
+    "TCG": {
+        "slug": "tcg", "h1": "Trading Card Games em Évora", "nome": "Trading Card Games",
+        "sub": "Boosters, Booster Boxes, Starter Decks e muito mais, na Weatherlight",
+        "intro": "Na Weatherlight encontras alguns dos principais Trading Card Games da atualidade: Pokémon TCG, Magic: The Gathering, "
+                 "One Piece Card Game, Gundam Card Game, Disney Lorcana, Yu-Gi-Oh!, Digimon Card Game, Star Wars: Unlimited, Riftbound, "
+                 "Weiß Schwarz, hololive, Cyberpunk TCG e Dragon Ball Super Card Game Fusion World. Aqui ficam todas as novidades que chegam à loja, em Évora.",
+        "faq": [
+            ("Qual é o melhor Trading Card Game para começar?", "Não existe uma resposta única, depende dos teus interesses. Pokémon TCG tem regras simples e uma comunidade muito ativa; Magic: The Gathering oferece uma enorme profundidade estratégica; One Piece Card Game é ideal para os fãs do universo de Eiichiro Oda. Se ainda tens dúvidas, ajudamos-te a encontrar o jogo certo."),
+            ("Preciso de saber jogar para começar a colecionar?", "Não. Muitas pessoas começam pelas cartas das personagens favoritas, pelas ilustrações ou pelo prazer de completar uma coleção. Aprender a jogar pode vir depois, ao teu ritmo."),
+            ("Qual é a diferença entre um Booster e uma Booster Box?", "Um Booster tem um único conjunto de cartas; uma Booster Box reúne vários Boosters da mesma coleção. Para experimentar uma coleção, um Booster chega; para acompanhar cada expansão, a Booster Box é mais completa."),
+            ("Posso participar num torneio sendo iniciante?", "Claro. Muitos eventos são pensados para receber novos jogadores, como os pré-lançamentos e os encontros semanais, onde o objetivo é jogar, aprender e divertir-te. Vê o calendário de eventos."),
+            ("A Weatherlight vende cartas soltas (Singles)?", "Não. De momento não vendemos Singles, nem na loja nem online."),
+        ],
+        "eventos": True,
+    },
+    "Figuras": {
+        "slug": "figuras", "h1": "Figuras de anime em Évora", "nome": "Figuras de Anime",
+        "sub": "Prize Figures, Scale Figures, Nendoroid e mais, na Weatherlight",
+        "intro": "Figuras oficiais de anime, videojogos e séries, de marcas e linhas reconhecidas internacionalmente, para quem procura a primeira "
+                 "figura ou peças mais detalhadas para a coleção. Aqui ficam todas as figuras que chegam à Weatherlight, em Évora.",
+        "faq": [
+            ("As figuras são oficiais?", "Sim. Todas as figuras da Weatherlight são produtos oficiais, licenciados pelos detentores das marcas e produzidos por fabricantes autorizados."),
+            ("Qual é a diferença entre uma Prize Figure e uma Scale Figure?", "As Prize Figures oferecem uma excelente relação entre qualidade e preço, ótimas para começar uma coleção. As Scale Figures têm normalmente mais detalhe, acabamentos mais elaborados e uma escala definida em relação à personagem."),
+            ("As figuras vêm montadas?", "A maioria chega praticamente pronta a expor. Às vezes basta encaixar a base ou pequenas peças, sem ferramentas nem cola."),
+            ("Fazem pré-encomendas de figuras?", "De momento não temos um sistema de pré-encomendas para figuras. Se procuras uma figura específica, fala connosco: analisamos a disponibilidade e se há forma de a encomendar."),
+            ("Podem ajudar-me a escolher uma figura?", "Claro! Aconselhamos-te de acordo com o teu orçamento, a tua série favorita ou o tipo de figura que procuras."),
+        ],
+    },
+    "Model Kits": {
+        "slug": "model-kits", "h1": "Model Kits e Gunpla em Évora", "nome": "Model Kits",
+        "sub": "Gunpla, Model Kits de One Piece e acessórios, na Weatherlight",
+        "intro": "Na Weatherlight encontras Model Kits para todos os níveis: Gunpla, inspirados no universo Mobile Suit Gundam, e os Model Kits "
+                 "de One Piece, dedicados aos navios da série. Aqui ficam todos os Model Kits que chegam à loja, em Évora.",
+        "faq": [
+            ("Preciso de experiência para começar?", "Não. Há Model Kits pensados para iniciantes, com instruções claras e montagem simples. Linhas como Entry Grade (EG) e High Grade (HG) são as mais indicadas para o primeiro kit."),
+            ("É preciso cola ou pintar?", "Na maioria dos Model Kits da Bandai, não: as peças encaixam por pressão (snap-fit) e já vêm em plástico colorido. A pintura é opcional, para quem quer personalizar."),
+            ("Que ferramentas preciso?", "Para a maioria dos kits basta um alicate de corte para separar as peças e uma lima ou esponja abrasiva para as pequenas marcas."),
+            ("Como escolho o meu primeiro Model Kit?", "Escolhe um modelo de que gostes visualmente e que pertença a uma linha para iniciantes. Se tiveres dúvidas, ajudamos-te a escolher."),
+            ("A Weatherlight organiza encontros de Model Kits?", "Sim! Organizamos regularmente encontros para construir, conversar e conhecer outros fãs, abertos a todos. Anunciamos as datas no Instagram."),
+        ],
+    },
+}
+
+
+def categoria(chave, dados, ld_loja):
+    c = CATEGORIAS[chave]
+    url = f"{BASE}/{c['slug']}/"
+    lista = [d for d in dados if d["tipo"] == chave]
+    ic, cor = ESTILO_TIPO.get(chave, ("", "var(--sea-2)"))
+    g = next((x for x in GUIA if x[0] == chave), None)
+    guia_box = (f'<section class="box faq guia"><h2><span class="ic" aria-hidden="true">{ic}</span><span style="color:{cor}">O que estou a comprar?</span></h2>'
+                f'{faq(g[2])}<p class="ver"><a class="insc" href="/guia/#{ancora(chave)}">Ver o guia completo →</a></p></section>') if g else ""
+    jogos = ""
+    if c.get("eventos"):
+        jogos = ('<section class="sec"><h2>Jogar na Weatherlight</h2><nav class="help" aria-label="Eventos por jogo">' + "".join(
+            f'<a href="{EVENTOS}/{pasta}/"{NOVA}><strong>{nome}</strong><span>Eventos semanais e especiais</span></a>'
+            for _, nome, pasta in JOGOS if pasta != "gundam-assemble") + "</nav></section>")
+    corpo = (f'<p class="intro-cat">{c["intro"]}</p>\n'
+             + (dias_html(lista) or '<section class="box"><p class="m">As novidades desta categoria aparecem aqui assim que chegam à loja.</p></section>')
+             + f"\n{guia_box}\n<section class=\"box faq\"><h2>Perguntas frequentes</h2>{faq(c['faq'])}</section>\n{jogos}\n"
+             f'<p class="ver"><a class="insc" href="/">← Todas as novidades</a></p>')
+    desc = f"{c['h1']}: as novidades de {c['nome']} na Weatherlight, loja de hobby em Évora (Alentejo, Portugal), com guia e perguntas frequentes."
+    ld = {"@context": "https://schema.org", "@graph": [ld_loja, {
+        "@type": "CollectionPage", "name": f"{c['h1']} — Weatherlight", "url": url, "inLanguage": "pt-PT", "about": {"@id": ld_loja["@id"]},
+        "spatialCoverage": {"@type": "Place", "name": "Évora, Alentejo, Portugal"},
+        "mainEntity": {"@type": "ItemList", "itemListElement": [{"@type": "ListItem", "position": i + 1, "item": produto_ld(d, ld_loja)}
+                                                                for i, d in enumerate(lista[:100])]}},
+        {"@type": "FAQPage", "url": url, "mainEntity": [{"@type": "Question", "name": p, "acceptedAnswer": {"@type": "Answer", "text": re.sub("<[^>]+>", "", r)}}
+                                                       for p, r in c["faq"]]}]}
+    og = next((quadrado(fotos(d)[0]) for d in lista if fotos(d)), "")
+    escrever(f"{c['slug']}/index.html", casca(f"{c['h1']} | Novidades Weatherlight, Alentejo", desc, url,
+             cab_pagina(c["h1"], c["sub"], c["nome"]), corpo, ld, og, JS_FOTOS))
+    return url
+
+
 # ---------------- página principal ----------------
 def gerar():
     dados = carregar()
@@ -568,7 +648,8 @@ def gerar():
     open(os.path.join(RAIZ, "index.html"), "w").write(
         casca("Novidades Weatherlight | Évora, Alentejo, Portugal", desc, url, cab, corpo, ld, og, JS_FOTOS + JS_FILTROS,
               alt={"pt": url, "en": f"{BASE}/en/"}))
-    urls = [url, ingles(vis, ld_loja), primeira_compra(ld_loja), guia(ld_loja)] + arquivo(dados, ld_loja)
+    urls = ([url, ingles(vis, ld_loja), primeira_compra(ld_loja), guia(ld_loja)] + [categoria(k, dados, ld_loja) for k in CATEGORIAS]
+            + arquivo(dados, ld_loja))
     json.dump({"name": "Novidades Weatherlight", "short_name": "Novidades WL", "start_url": "/", "display": "standalone",
                "background_color": "#ffffff", "theme_color": "#ffffff", "lang": "pt-PT",
                "icons": [{"src": "/apple-touch-icon.png", "sizes": "180x180", "type": "image/png"}]},
@@ -591,7 +672,7 @@ def gerar():
         f"# Novidades Weatherlight\n\n> Produtos que acabaram de chegar à Weatherlight Games & Collectibles, loja de hobby em Évora "
         f"(Alentejo, Portugal): Trading Card Games, acessórios, figuras de anime, Model Kits, miniaturas, TTRPGs, blind boxes e peluches. Atualizado de hora a hora.\n\n"
         f"- [Novidades Weatherlight]({url})\n- [Primeira compra: pagamentos, envios, levantamento e devoluções]({BASE}/primeira-compra/)\n"
-        f"- [Guia de produtos por categoria]({BASE}/guia/)\n- [Arquivo de novidades por mês]({BASE}/arquivo/)\n- [English version]({BASE}/en/)\n- [Feed RSS]({url}feed.xml)\n- [Loja online]({LOJA}/)\n- [Calendário de eventos]({EVENTOS}/)\n\n"
+        f"- [Guia de produtos por categoria]({BASE}/guia/)\n- [Arquivo de novidades por mês]({BASE}/arquivo/)\n" + "".join(f"- [{v['h1']}]({BASE}/{v['slug']}/)\n" for v in CATEGORIAS.values()) + f"- [English version]({BASE}/en/)\n- [Feed RSS]({url}feed.xml)\n- [Loja online]({LOJA}/)\n- [Calendário de eventos]({EVENTOS}/)\n\n"
         "## Últimas novidades\n\n" + "".join(f"- [{d['nome']}]({d['url']}) · {preco(d.get('preco'))}\n" for d in vis[:40]))
     return url
 
