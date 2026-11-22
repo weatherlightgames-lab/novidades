@@ -647,7 +647,9 @@ def gerar():
             "Model Kits": "Gunpla e Model Kits de One Piece, do EG ao MG"}
     explora = ('<section class="sec explora"><h2>Explora por categoria</h2><nav class="help" aria-label="Categorias">'
                + "".join(f'<a href="/{v["slug"]}/"><strong>{ESTILO_TIPO[k][0]} {v["nome"]}</strong><span>{expl.get(k, "")}</span></a>' for k, v in CATEGORIAS.items())
-               + '<a href="/arquivo/"><strong>📦 Novidades anteriores</strong><span>Tudo o que chegou à Weatherlight, mês a mês</span></a></nav></section>')
+               + '</nav></section>'
+               '<section class="sec explora"><h2>Novidades anteriores</h2><nav class="help" aria-label="Arquivo">'
+               '<a href="/arquivo/"><strong>📦 Arquivo de novidades</strong><span>Tudo o que chegou à Weatherlight, mês a mês</span></a></nav></section>')
     corpo = f"    {ajuda}\n    {filtros}\n    {blocos}\n    {explora}\n    {subs}"
     open(os.path.join(RAIZ, "index.html"), "w").write(
         casca("Novidades Weatherlight | Évora, Alentejo, Portugal", desc, url, cab, corpo, ld, og, JS_FOTOS + JS_FILTROS,
