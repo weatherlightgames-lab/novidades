@@ -1,34 +1,10 @@
 [
  {
-  "codigo": "BT-27",
-  "jogo": "Digimon",
-  "rx": "\\bBT-?27\\b",
-  "nome": "Ignition of X",
-  "url": "https://world.digimoncard.com/cards/?search=true&category=522040",
-  "fonte": "lista oficial da Bandai"
- },
- {
   "codigo": "LM-09",
   "jogo": "Digimon",
   "rx": "\\bLM-?09\\b",
   "nome": "Distancia Cero",
   "url": "https://world.digimoncard.com/cards/?search=true&category=522205",
-  "fonte": "lista oficial da Bandai"
- },
- {
-  "codigo": "ST-25",
-  "jogo": "Digimon",
-  "rx": "\\bST-?25\\b",
-  "nome": "DIGIMON ALYSION Rubeusdramon",
-  "url": "https://world.digimoncard.com/cards/?search=true&category=522125",
-  "fonte": "lista oficial da Bandai"
- },
- {
-  "codigo": "ST-26",
-  "jogo": "Digimon",
-  "rx": "\\bST-?26\\b",
-  "nome": "DIGIMON ALYSION Yukinamon",
-  "url": "https://world.digimoncard.com/cards/?search=true&category=522126",
   "fonte": "lista oficial da Bandai"
  },
  {
@@ -56,19 +32,27 @@
   "fonte": "página oficial do produto (Bandai)"
  },
  {
-  "codigo": "EB01",
-  "jogo": "Gundam Card Game",
-  "rx": "\\bEB-?01\\b",
-  "nome": "Eternal Nexus",
-  "url": "https://gundam-gcg.com/en/products/eb01.html",
-  "fonte": "página oficial do produto (Bandai)"
- },
- {
   "codigo": "hBP07",
   "jogo": "hololive",
   "rx": "\\bhBP-?07\\b",
   "nome": "Diva Fever",
   "url": "https://en.hololive-official-cardgame.com/products/post/diva-fever/",
   "fonte": "página oficial do produto (Bushiroad)"
+ },
+ {
+  "auto": true,
+  "jogo": "Digimon",
+  "rx": "\\b(BT|EX|ST|RB)-?(\\d{1,2})\\b",
+  "url": "https://digimon.digilab.cards/cards/set/{p}{n}",
+  "formato": "{P}-{n:02d}",
+  "fonte": "DigiLab (base de dados da comunidade, com preços)"
+ },
+ {
+  "auto": true,
+  "jogo": "Gundam Card Game",
+  "rx": "\\b(GD|EB|ST)-?(\\d{1,2})\\b",
+  "url": "https://gundam.digilab.cards/cards/set/{p}{n:02d}",
+  "formato": "{P}{n:02d}",
+  "fonte": "DigiLab (base de dados da comunidade, com preços)"
  }
 ]

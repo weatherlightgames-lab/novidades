@@ -400,8 +400,16 @@ def loja_url(u, fonte=UTM):
 
 def coleccao(d):
     """Set do produto (bot/coleccoes.json): link para a lista de cartas que podem sair."""
+    nome = d["nome"]
+    for c in COLECCOES:  # primeiro os sets indicados um a um, depois as regras automáticas por jogo
+        if c.get("auto") or c["jogo"].lower() not in nome.lower(): continue
+        if re.search(c["rx"], nome, re.I): return c
     for c in COLECCOES:
-        if c["jogo"].lower() in d["nome"].lower() and re.search(c["rx"], d["nome"], re.I): return c
+        if not c.get("auto") or c["jogo"].lower() not in nome.lower(): continue
+        m = re.search(c["rx"], nome, re.I)
+        if m:
+            p, n = m.group(1), int(m.group(2))
+            return {"codigo": c["formato"].format(P=p.upper(), n=n), "url": c["url"].format(p=p.lower(), n=n), "fonte": c.get("fonte", "")}
     return None
 
 
