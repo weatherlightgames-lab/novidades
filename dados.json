@@ -1,5 +1,85 @@
 [
  {
+  "url": "https://www.weatherlightgames.pt/product/digimon-card-game-ignition-of-x-bt-27-booster-box-en",
+  "nome": "Digimon Card Game: Ignition of X (BT-27) - Booster Box - EN",
+  "preco": 99.9,
+  "imagem": "https://cdn-shopkit.com/usercontent/weatherlightgames/media/images/a18afac-105023-01_digimon-card-game-ignition-of-x-bt-27-booster-box-en_a.jpg",
+  "imagens": [
+   "https://cdn-shopkit.com/usercontent/weatherlightgames/media/images/a18afac-105023-01_digimon-card-game-ignition-of-x-bt-27-booster-box-en_a.jpg",
+   "https://cdn-shopkit.com/usercontent/weatherlightgames/media/images/5764860-105019-01_digimon-card-game-ignition-of-x-bt-27-booster-box-en_b.jpg"
+  ],
+  "marca": "Digimon Card Game",
+  "gtin": "810199501765",
+  "tipo": "TCG",
+  "data": "2026-11-27T11:16+00:00"
+ },
+ {
+  "url": "https://www.weatherlightgames.pt/product/digimon-card-game-ignition-of-x-bt-27-booster-en",
+  "nome": "Digimon Card Game: Ignition of X (BT-27) - Booster - EN",
+  "preco": 5,
+  "imagem": "https://cdn-shopkit.com/usercontent/weatherlightgames/media/images/65cbbf4-104957-02_digimon-card-game-ignition-of-x-bt-27-booster-en.jpg",
+  "imagens": [
+   "https://cdn-shopkit.com/usercontent/weatherlightgames/media/images/65cbbf4-104957-02_digimon-card-game-ignition-of-x-bt-27-booster-en.jpg"
+  ],
+  "marca": "Digimon Card Game",
+  "gtin": null,
+  "tipo": "TCG",
+  "data": "2026-11-27T11:16+00:00"
+ },
+ {
+  "url": "https://www.weatherlightgames.pt/product/digimon-card-game-limited-card-pack-distancia-cero-lm-09-booster-box-6-pcs-en",
+  "nome": "Digimon Card Game: Limited Card Pack - Distancia Cero (LM-09) - Booster Box (6 pcs) - EN",
+  "preco": 36.9,
+  "imagem": "https://cdn-shopkit.com/usercontent/weatherlightgames/media/images/45bf53d-095013-01_lm09_a.jpg",
+  "imagens": [
+   "https://cdn-shopkit.com/usercontent/weatherlightgames/media/images/45bf53d-095013-01_lm09_a.jpg",
+   "https://cdn-shopkit.com/usercontent/weatherlightgames/media/images/82e5693-095007-01_lm09_b.jpg"
+  ],
+  "marca": "Digimon Card Game",
+  "gtin": "810199505664",
+  "tipo": "TCG",
+  "data": "2026-11-27T11:16+00:00"
+ },
+ {
+  "url": "https://www.weatherlightgames.pt/product/one-piece-card-game-gift-collection-one-piece-heroines-gc-2026-en",
+  "nome": "One Piece Card Game: Gift Collection -ONE PIECE Heroines- (GC-2026) - EN",
+  "preco": 69.9,
+  "imagem": "https://cdn-shopkit.com/usercontent/weatherlightgames/media/images/55d2df2-094852-01_one-piece-card-game-gift-collection-heroines.jpg",
+  "imagens": [
+   "https://cdn-shopkit.com/usercontent/weatherlightgames/media/images/55d2df2-094852-01_one-piece-card-game-gift-collection-heroines.jpg"
+  ],
+  "marca": "One Piece Card Game",
+  "gtin": "810199503950",
+  "tipo": "TCG",
+  "data": "2026-11-27T11:16+00:00"
+ },
+ {
+  "url": "https://www.weatherlightgames.pt/product/one-piece-card-game-illustration-box-vol-10-ib-10-en",
+  "nome": "One Piece Card Game: Illustration Box Vol.10 (IB-10) - EN",
+  "preco": 36.9,
+  "imagem": "https://cdn-shopkit.com/usercontent/weatherlightgames/media/images/0138515-101700-02_one-piece-card-game-illustration-box-vol10-ib-10-en.jpg",
+  "imagens": [
+   "https://cdn-shopkit.com/usercontent/weatherlightgames/media/images/0138515-101700-02_one-piece-card-game-illustration-box-vol10-ib-10-en.jpg"
+  ],
+  "marca": "One Piece Card Game",
+  "gtin": "810199506395",
+  "tipo": "TCG",
+  "data": "2026-11-27T11:16+00:00"
+ },
+ {
+  "url": "https://www.weatherlightgames.pt/product/one-piece-card-game-illustration-box-vol-9-ib-09-en",
+  "nome": "One Piece Card Game: Illustration Box Vol.9 (IB-09) - EN",
+  "preco": 36.9,
+  "imagem": "https://cdn-shopkit.com/usercontent/weatherlightgames/media/images/f1377b9-101627-01_one-piece-card-game-illustration-box-vol9-ib-09-en.jpg",
+  "imagens": [
+   "https://cdn-shopkit.com/usercontent/weatherlightgames/media/images/f1377b9-101627-01_one-piece-card-game-illustration-box-vol9-ib-09-en.jpg"
+  ],
+  "marca": "One Piece Card Game",
+  "gtin": "810199506364",
+  "tipo": "TCG",
+  "data": "2026-11-27T11:16+00:00"
+ },
+ {
   "url": "https://www.weatherlightgames.pt/product/gamegenic-sidekick-pro-100-xl-black",
   "nome": "Gamegenic - Sidekick PRO 100+ XL - Black",
   "preco": 28.5,
