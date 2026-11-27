@@ -166,7 +166,7 @@ CSS = (".np{display:flex;flex-direction:column;gap:.4rem;background:var(--paper)
        ".dia h2 small{font:400 .85rem var(--mono);color:var(--muted);letter-spacing:.04em}"
        ".lede a{color:var(--hd-ink)}.f .ic{font-size:1.25rem;line-height:1}.flt{margin:0 0 1.6rem}.help{margin:0 0 1.6rem}"
        ".hid{display:none!important}.subs{margin-top:2.5rem}.explora{margin-top:1rem}.ver{margin:.4rem 0 0}"
-       ".np .evl{font-size:.8rem;color:var(--link);text-decoration:none;margin-top:.55rem}"
+       ".np .evl{font-size:.8rem;color:var(--link);text-decoration:none;margin-top:.55rem}.np .evl.cl{margin-top:.2rem}"
        ".np .nm{margin-top:.1rem}.np .price{margin-top:.15rem}.intro-cat{margin:0 0 1.6rem;max-width:46rem;color:var(--muted)}.np .evl:hover{text-decoration:underline}"
        ".guia h2 .ic{margin-right:.35rem}.guia .ver{margin:.8rem 0 0}"
        "@media (max-width:640px){.f{flex-direction:column;gap:.1rem;height:3.5rem;line-height:1.1;text-align:center}.f .ic{font-size:1.05rem}}"
@@ -380,6 +380,8 @@ def guia(ld_loja):
 
 # ---------------- peças comuns (cartões, filtros, dias) ----------------
 UTM = "utm_source=novidades&utm_medium=site&utm_campaign=novidades"
+try: COLECCOES = json.load(open(os.path.join(AQUI, "coleccoes.json")))
+except (FileNotFoundError, ValueError): COLECCOES = []
 # Página do jogo no calendário de eventos, a partir do nome do produto
 JOGOS = [(r"one piece", "One Piece", "one-piece"), (r"pok[eé]mon", "Pokémon", "pokemon"), (r"magic", "Magic", "magic"),
          (r"yu-?gi-?oh", "Yu-Gi-Oh!", "yu-gi-oh"), (r"riftbound", "Riftbound", "riftbound"), (r"digimon", "Digimon", "digimon"),
@@ -394,6 +396,13 @@ MES_EN = ["January", "February", "March", "April", "May", "June", "July", "Augus
 def loja_url(u, fonte=UTM):
     """Link para a loja com a marca de origem (para a Shopkit mostrar as visitas que vêm daqui)."""
     return u + ("&" if "?" in u else "?") + fonte
+
+
+def coleccao(d):
+    """Set do produto (bot/coleccoes.json): link para a lista de cartas que podem sair."""
+    for c in COLECCOES:
+        if c["jogo"].lower() in d["nome"].lower() and re.search(c["rx"], d["nome"], re.I): return c
+    return None
 
 
 def jogo(d):
@@ -411,6 +420,8 @@ def card(d, en=False):
     if len(fs) > 1: img += '<b class="dots">' + "<u></u>" * len(fs) + "</b>"
     cor = ESTILO_TIPO.get(d["tipo"], ("", "var(--muted)"))[1]
     j = jogo(d)
+    col = coleccao(d) if d["tipo"] == "TCG" else None
+    cartas = (f'<a class="evl cl" href="{html.escape(col["url"])}"{NOVA}>🃏 ' + (f'{html.escape(col["codigo"])} card list ↗' if en else f'Ver as cartas de {html.escape(col["codigo"])} ↗') + '</a>') if col else ""
     ev = ""
     if j: ev = f'<a class="evl" href="{j[1]}"{NOVA}>📅 ' + (f'{html.escape(j[0])} events' if en else f'Eventos de {html.escape(j[0])}') + '</a>'
     return (f'<article class="np" data-t="{html.escape(d["tipo"])}">'
@@ -418,7 +429,7 @@ def card(d, en=False):
             + (f'<span class="tg"><a class="chip" href="/{CATEGORIAS[d["tipo"]]["slug"]}/" style="color:{cor}">{html.escape(d["tipo"])}</a></span>' if (not en and d["tipo"] in CATEGORIAS)
                else f'<span class="tg"><span class="chip" style="color:{cor}">{html.escape(TIPO_EN.get(d["tipo"], d["tipo"]) if en else d["tipo"])}</span></span>') +
             f'<a class="nm" href="{u}"{NOVA}><strong>{alt}</strong></a>'
-            f'<span class="price">{preco(d.get("preco"))}</span>{ev}</article>')
+            f'<span class="price">{preco(d.get("preco"))}</span>{ev}{cartas}</article>')
 
 
 def filtros_html(lista, en=False):

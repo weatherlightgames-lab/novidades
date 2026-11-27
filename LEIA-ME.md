@@ -30,3 +30,6 @@ Site "Novidades Weatherlight" da Weatherlight Games & Collectibles (Évora, Alen
 ## Horário do bot
 - O GitHub atrasa muito os horários (chegou a passar 10 horas sem correr). Por isso o workflow corre em **ciclo**: cada execução fica ~5 horas a procurar novidades de 15 em 15 minutos e, no fim, lança a seguinte. O cron de hora a hora fica só como vigia, para o ciclo recomeçar se parar.
 - As execuções à mão (`teste`, `adicionar`, `sem_discord`) correm logo, à parte do ciclo.
+
+## Listas de cartas dos sets
+- `bot/coleccoes.json`: um set por linha (`codigo`, `jogo`, `rx` para encontrar o código no nome do produto, `url` da lista de cartas, de preferência a oficial). Os cartões de TCG desse set ganham o link "🃏 Ver as cartas de …". Acrescentar quando chega um set novo.
