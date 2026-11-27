@@ -12,24 +12,24 @@
   "jogo": "Digimon",
   "rx": "\\bLM-?09\\b",
   "nome": "Distancia Cero",
-  "url": "https://world.digimoncard.com/products/goods/limited-lm-09.php",
-  "fonte": "página oficial do produto (Bandai)"
+  "url": "https://world.digimoncard.com/cards/?search=true&category=522205",
+  "fonte": "lista oficial da Bandai"
  },
  {
   "codigo": "ST-25",
   "jogo": "Digimon",
   "rx": "\\bST-?25\\b",
   "nome": "DIGIMON ALYSION Rubeusdramon",
-  "url": "https://world.digimoncard.com/products/deck/st25-26/",
-  "fonte": "página oficial com as listas do ST-25 e ST-26 (Bandai)"
+  "url": "https://world.digimoncard.com/cards/?search=true&category=522125",
+  "fonte": "lista oficial da Bandai"
  },
  {
   "codigo": "ST-26",
   "jogo": "Digimon",
   "rx": "\\bST-?26\\b",
   "nome": "DIGIMON ALYSION Yukinamon",
-  "url": "https://world.digimoncard.com/products/deck/st25-26/",
-  "fonte": "página oficial com as listas do ST-25 e ST-26 (Bandai)"
+  "url": "https://world.digimoncard.com/cards/?search=true&category=522126",
+  "fonte": "lista oficial da Bandai"
  },
  {
   "codigo": "OP18",
