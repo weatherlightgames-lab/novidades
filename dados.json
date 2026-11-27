@@ -1,5 +1,45 @@
 [
  {
+  "url": "https://www.weatherlightgames.pt/product/plush-figure-kirby-kirby-on-star-17-cm",
+  "nome": "Plush Figure - Kirby - Kirby on Star (17 cm)",
+  "preco": 19.9,
+  "imagem": "https://cdn-shopkit.com/usercontent/weatherlightgames/media/images/5a73e0f-210211-96_kirby-kirby-on-star-plush-17cm_a.jpg",
+  "imagens": [
+   "https://cdn-shopkit.com/usercontent/weatherlightgames/media/images/5a73e0f-210211-96_kirby-kirby-on-star-plush-17cm_a.jpg",
+   "https://cdn-shopkit.com/usercontent/weatherlightgames/media/images/a6f276a-210207-96_kirby-kirby-on-star-plush-17cm_b.jpg"
+  ],
+  "marca": null,
+  "gtin": "3760259935832",
+  "tipo": "Peluches",
+  "data": "2026-11-27T21:13+00:00"
+ },
+ {
+  "url": "https://www.weatherlightgames.pt/product/plush-figure-that-time-i-got-reincarnated-as-a-slime-rimuru-13-cm",
+  "nome": "Plush Figure - That Time I Got Reincarnated as a Slime - Rimuru (13 cm)",
+  "preco": 12.9,
+  "imagem": "https://cdn-shopkit.com/usercontent/weatherlightgames/media/images/e9bde32-210327-98_slime-plush-13cm.jpg",
+  "imagens": [
+   "https://cdn-shopkit.com/usercontent/weatherlightgames/media/images/e9bde32-210327-98_slime-plush-13cm.jpg"
+  ],
+  "marca": null,
+  "gtin": "8436591586678",
+  "tipo": "Peluches",
+  "data": "2026-11-27T21:13+00:00"
+ },
+ {
+  "url": "https://www.weatherlightgames.pt/product/plush-figure-that-time-i-got-reincarnated-as-a-slime-rimuru-blushes-13-cm",
+  "nome": "Plush Figure - That Time I Got Reincarnated as a Slime - Rimuru - Blushes (13 cm)",
+  "preco": 12.9,
+  "imagem": "https://cdn-shopkit.com/usercontent/weatherlightgames/media/images/275271a-210351-97_slime-blush-plush-13cm.jpg",
+  "imagens": [
+   "https://cdn-shopkit.com/usercontent/weatherlightgames/media/images/275271a-210351-97_slime-blush-plush-13cm.jpg"
+  ],
+  "marca": null,
+  "gtin": "8436591586685",
+  "tipo": "Peluches",
+  "data": "2026-11-27T21:13+00:00"
+ },
+ {
   "url": "https://www.weatherlightgames.pt/product/cushion-animal-crossing-fossil-35-cm",
   "nome": "Cushion - Animal Crossing - Fossil (35 cm)",
   "preco": 22.9,
