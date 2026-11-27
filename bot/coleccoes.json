@@ -1,4 +1,20 @@
 [
  {"codigo": "BT-27", "jogo": "Digimon", "rx": "\\bBT-?27\\b", "nome": "Ignition of X",
-  "url": "https://world.digimoncard.com/cards/?search=true&category=522040", "fonte": "lista oficial da Bandai"}
+  "url": "https://world.digimoncard.com/cards/?search=true&category=522040", "fonte": "lista oficial da Bandai"},
+ {"codigo": "LM-09", "jogo": "Digimon", "rx": "\\bLM-?09\\b", "nome": "Distancia Cero",
+  "url": "https://world.digimoncard.com/products/goods/limited-lm-09.php", "fonte": "página oficial do produto (Bandai)"},
+ {"codigo": "ST-25", "jogo": "Digimon", "rx": "\\bST-?25\\b", "nome": "DIGIMON ALYSION Rubeusdramon",
+  "url": "https://world.digimoncard.com/products/deck/st25-26/", "fonte": "página oficial com as listas do ST-25 e ST-26 (Bandai)"},
+ {"codigo": "ST-26", "jogo": "Digimon", "rx": "\\bST-?26\\b", "nome": "DIGIMON ALYSION Yukinamon",
+  "url": "https://world.digimoncard.com/products/deck/st25-26/", "fonte": "página oficial com as listas do ST-25 e ST-26 (Bandai)"},
+ {"codigo": "OP18", "jogo": "One Piece", "rx": "\\bOP-?18\\b", "nome": "The Dominance of God",
+  "url": "https://asia-en.onepiece-cardgame.com/cardlist/?series=556118", "fonte": "lista oficial da Bandai (site Asia, em inglês)"},
+ {"codigo": "ST-37", "jogo": "One Piece", "rx": "\\bST-?37\\b", "nome": "The Desert Princess and the Pirates",
+  "url": "https://en.onepiece-cardgame.com/products/st37.html", "fonte": "página oficial do produto (Bandai)"},
+ {"codigo": "ST-38", "jogo": "One Piece", "rx": "\\bST-?38\\b", "nome": "Baroque Works",
+  "url": "https://en.onepiece-cardgame.com/products/st38.html", "fonte": "página oficial do produto (Bandai)"},
+ {"codigo": "EB01", "jogo": "Gundam Card Game", "rx": "\\bEB-?01\\b", "nome": "Eternal Nexus",
+  "url": "https://gundam-gcg.com/en/products/eb01.html", "fonte": "página oficial do produto (Bandai)"},
+ {"codigo": "hBP07", "jogo": "hololive", "rx": "\\bhBP-?07\\b", "nome": "Diva Fever",
+  "url": "https://en.hololive-official-cardgame.com/products/post/diva-fever/", "fonte": "página oficial do produto (Bushiroad)"}
 ]
