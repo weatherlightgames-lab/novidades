@@ -1,8 +1,11 @@
 name: Novidades
 
+# O GitHub atrasa muito os horários (cron) e chegou a passar 10 horas sem correr.
+# Por isso cada execução "ciclo" fica a trabalhar ~5 horas, a procurar novidades de 15 em 15 minutos,
+# e no fim lança a seguinte. O cron fica só como vigia: se o ciclo parar, volta a pô-lo a andar.
 on:
   schedule:
-    - cron: "17 * * * *"   # de hora a hora, ao minuto 17
+    - cron: "17 * * * *"
   workflow_dispatch:
     inputs:
       teste:
@@ -14,44 +17,61 @@ on:
         required: false
         default: ""
       sem_discord:
-        description: "Execução normal, mas sem anunciar no Discord (os produtos novos só entram no site)."
+        description: "Uma passagem normal, mas sem anunciar no Discord (os produtos novos só entram no site)."
+        type: boolean
+        default: false
+      ciclo:
+        description: "Uso interno: ciclo contínuo de 15 em 15 minutos."
         type: boolean
         default: false
 
 permissions:
   contents: write
+  actions: write
 
 concurrency:
-  group: novidades
+  group: ${{ (github.event_name == 'schedule' || github.event.inputs.ciclo == 'true') && 'novidades-ciclo' || format('novidades-manual-{0}', github.run_id) }}
   cancel-in-progress: false
 
 jobs:
   novidades:
     runs-on: ubuntu-latest
+    timeout-minutes: 330
+    env:
+      DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+      GH_TOKEN: ${{ github.token }}
+      CICLO: ${{ (github.event_name == 'schedule' || github.event.inputs.ciclo == 'true') && '1' || '' }}
+      TESTE: ${{ github.event.inputs.teste }}
+      ADICIONAR: ${{ github.event.inputs.adicionar }}
+      SEM_DISCORD: ${{ github.event.inputs.sem_discord }}
     steps:
       - uses: actions/checkout@v4
-      - name: Procurar produtos novos
-        env:
-          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
-          TESTE: ${{ github.event.inputs.teste }}
-          ADICIONAR: ${{ github.event.inputs.adicionar }}
-          SEM_DISCORD: ${{ github.event.inputs.sem_discord }}
+      - name: Procurar novidades e publicar
         run: |
-          if [ -n "$TESTE" ]; then
-            python3 bot/novidades.py bot/vistos.json --teste $TESTE
-          elif [ -n "$ADICIONAR" ]; then
-            python3 bot/novidades.py bot/vistos.json --adicionar $ADICIONAR
-          else
-            python3 bot/novidades.py bot/vistos.json
-          fi
-      - name: Sincronizar com o calendário e gerar o site
-        run: python3 bot/pagina.py --sincronizar
-      - name: Publicar
-        run: |
+          set +e
           git config user.name "Weatherlight Bot"
           git config user.email "noreply@github.com"
-          git add -A
-          if ! git diff --cached --quiet; then
-            git commit -m "Novidades: $(date -u +%F\ %H:%M)"
-            for i in 1 2 3; do git pull --rebase origin main && git push origin HEAD:main && break; sleep 5; done
-          fi
+          publicar() {
+            git add -A
+            if ! git diff --cached --quiet; then
+              git commit -qm "Novidades: $(date -u +%F\ %H:%M)"
+              for i in 1 2 3; do git pull -q --rebase origin main && git push -q origin HEAD:main && break; sleep 5; done
+            fi
+          }
+          passagem() {
+            git fetch -q origin main && git reset -q --hard origin/main
+            if [ -n "$TESTE" ]; then python3 bot/novidades.py bot/vistos.json --teste $TESTE
+            elif [ -n "$ADICIONAR" ]; then python3 bot/novidades.py bot/vistos.json --adicionar $ADICIONAR
+            else python3 bot/novidades.py bot/vistos.json; fi
+            python3 bot/pagina.py --sincronizar
+            publicar
+          }
+          if [ -z "$CICLO" ]; then passagem; exit 0; fi
+          VOLTAS=20   # 20 x 15 min = 5 horas
+          for v in $(seq 1 $VOLTAS); do
+            echo "::group::Passagem $v ($(date -u +%H:%M) UTC)"
+            passagem
+            echo "::endgroup::"
+            [ "$v" -lt "$VOLTAS" ] && sleep 900
+          done
+          gh workflow run novidades.yml --repo "$GITHUB_REPOSITORY" -f ciclo=true && echo "Próximo ciclo lançado."

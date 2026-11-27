@@ -26,3 +26,7 @@ Site "Novidades Weatherlight" da Weatherlight Games & Collectibles (Évora, Alen
 - O calendário de eventos é a base: a cada execução, `python3 bot/pagina.py --sincronizar` copia de lá os estilos e o horário.
 - Os links para a loja levam `utm_source=novidades` (site) ou `utm_source=discord` (bot), para as estatísticas da Shopkit.
 - Execução normal sem anúncio no Discord: campo `sem_discord` no Run workflow.
+
+## Horário do bot
+- O GitHub atrasa muito os horários (chegou a passar 10 horas sem correr). Por isso o workflow corre em **ciclo**: cada execução fica ~5 horas a procurar novidades de 15 em 15 minutos e, no fim, lança a seguinte. O cron de hora a hora fica só como vigia, para o ciclo recomeçar se parar.
+- As execuções à mão (`teste`, `adicionar`, `sem_discord`) correm logo, à parte do ciclo.
