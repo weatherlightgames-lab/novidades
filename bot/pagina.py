@@ -694,8 +694,10 @@ CSS_SETS = (".faixa{position:relative;z-index:0;height:calc(clamp(150px,24vw,320
             ".setc .fx2{height:7.5rem;background:#13232a center/cover no-repeat}"
             ".setc .fx2.sem{display:grid;place-items:center;color:#d6e5e8;font-weight:600;letter-spacing:.06em}"
             ".setc span.t2{padding:.7rem .9rem;display:grid;gap:.15rem}.setc small{color:var(--muted);font-size:.8rem}"
-            ".lanc.topo .sets{grid-auto-flow:column;grid-auto-columns:minmax(13rem,15rem);grid-template-columns:none;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:.4rem}"
-            ".lanc.topo .setc{scroll-snap-align:start}.lanc.topo .setc .fx2{height:6.5rem}.lanc h2 small{font-size:.75rem;color:var(--muted);text-transform:none;letter-spacing:0}"
+            ".lanc.topo .sets{grid-auto-flow:column;grid-auto-columns:minmax(10rem,11.5rem);gap:.6rem;grid-template-columns:none;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:.4rem}"
+            ".lanc.topo .setc{scroll-snap-align:start}.lanc.topo .setc .fx2{height:3.6rem}.lanc.topo .t2{padding:.45rem .65rem}"
+            ".lanc.topo .t2 strong{font-size:.82rem;font-weight:500;line-height:1.25;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.lanc.topo .t2 small{display:none}"
+            ".lanc.topo h2{font-size:1rem;margin-bottom:.5rem}.lanc.topo{margin-bottom:1.2rem}.lanc h2 small{font-size:.75rem;color:var(--muted);text-transform:none;letter-spacing:0}"
             ".lks2{display:flex;flex-wrap:wrap;gap:.5rem;margin:1rem 0 1.8rem}.lanc{margin:0 0 1.6rem}")
 CSS += CSS_SETS
 
