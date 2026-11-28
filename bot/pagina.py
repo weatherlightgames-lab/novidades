@@ -535,7 +535,7 @@ def ingles(vis, ld_loja):
            f'    <p class="sub">The latest products at Weatherlight, your hobby shop in Évora, Alentejo</p>\n'
            f'    <p class="lede">Trading Card Games, accessories, anime figures, Model Kits, miniatures, TTRPGs, blind boxes and plushies: everything that arrives at Weatherlight shows up here on the same day. Find it in our <a href="{loja_url(LOJA + "/")}"{NOVA}>online shop</a> or at the shop in Évora.</p>\n'
            f'    <div class="info"><span>{html.escape(end.get("streetAddress", ""))}, {html.escape(end.get("postalCode", ""))} Évora</span>'
-           f'<a href="{mapa}"{NOVA}>📍 Map</a><a href="{INSTAGRAM}"{NOVA}>Instagram</a><a href="{EVENTOS}/en/"{NOVA}>📅 Events (English)</a><a href="/en/visit/">🧭 Visiting Évora?</a>'
+           f'<a href="{mapa}"{NOVA}>📍 Map</a><a href="{INSTAGRAM}"{NOVA}>Instagram</a><a href="{EVENTOS}/en/"{NOVA}>📅 Events (English)</a><a href="{EVENTOS}/en/"{NOVA}>🧭 Visiting Évora?</a>'
            f'<a href="/" hreflang="pt" lang="pt">🇵🇹 Português</a></div>\n  </div>\n</header>')
     visita = ('<section class="box"><h2>Visiting from abroad?</h2><ul class="dates">'
               '<li><span>Shop</span><span>Come in and browse, or ask us about anything you saw online</span></li>'
@@ -690,53 +690,19 @@ def de_fora(ld_loja):
              cab_faixa("Vens de fora de <em>Évora</em>?", "Eventos, novidades e levantamento na loja, na Weatherlight, em Évora",
                        '<a href="/">Novidades Weatherlight</a> › Vens de fora de Évora?', "/img/fachada.webp", "50% 75%",
                        "A frente da loja Weatherlight Games, na Rua Frei José Maria Évora, em Évora"), corpo, ld, BASE + "/img/fachada.webp",
-             alt={"pt": url, "en": f"{BASE}/en/visit/"}))
+             alt={"pt": url, "en": f"{EVENTOS}/en/"}))
     return url
 
 # ---------------- página: visiting Évora? (inglês) ----------------
 def visita_en(ld_loja):
-    url = f"{BASE}/en/visit/"
-    end = ld_loja.get("address", {}); mapa = ld_loja.get("hasMap", "")
-    morada = f'{html.escape(end.get("streetAddress", ""))}, {html.escape(end.get("postalCode", ""))} Évora'
-    cartoes = (f'<nav class="help" aria-label="Plan your visit">'
-               f'<a href="{EVENTOS}/en/"{NOVA}><strong>📅 Events in English</strong><span>Weekly tournaments, prereleases and release events: visitors are welcome</span></a>'
-               f'<a href="/en/"><strong>🆕 New arrivals</strong><span>Everything that arrived at the shop in the last few weeks</span></a>'
-               f'<a href="{mapa}"{NOVA}><strong>📍 Find us on the map</strong><span>{morada}</span></a>'
-               f'<a href="{loja_url(LOJA + "/")}"{NOVA}><strong>🛒 Online shop</strong><span>Browse before you come, or order and pick it up in store for free</span></a></nav>')
-    perguntas = [
-        ("Is there a card shop in Évora?",
-         "Yes: Weatherlight Games &amp; Collectibles, a hobby shop in Évora with Pokémon TCG, Magic: The Gathering, One Piece Card Game, Yu-Gi-Oh!, "
-         "Digimon, Gundam Card Game, Riftbound, Disney Lorcana and more, plus anime figures, Gunpla and miniatures."),
-        ("Are your trading cards in English?",
-         "Most of our trading card products are English editions, so they're easy to play with wherever you live. Each product name shows its language (EN)."),
-        ("Can I play in an event while I'm visiting?",
-         f"Of course! Check the <a href=\"{EVENTOS}/en/\"{NOVA}>events calendar</a> for dates, prices and how to sign up, and arrive a little early for check-in."),
-        ("Do you speak English?", "We all do, so just ask!"),
-        ("Do you sell single cards?", "Not at the moment: we sell sealed products only, in the shop and online."),
-        ("Where is the shop?", f"At {morada}, Portugal. <a href=\"{mapa}\"{NOVA}>Open it in Google Maps</a>."),
-    ]
-    corpo = ('<p class="intro-cat">Visiting Évora? Weatherlight is the city\'s hobby shop: trading card games, anime figures, Gunpla, '
-             'miniatures and weekly events. Look for the white building with Pikachu, Luffy and Yugi in the windows!</p>\n'
-             f'{cartoes}\n<section class="box"><h2>Plan your visit</h2><ul class="dates">'
-             f'<li><span>Address</span><span>{morada}</span></li>'
-             f'<li><span>Phone</span><span>+351 {TELEFONE}</span></li>'
-             f'<li><span>Map</span><span><a href="{mapa}"{NOVA}>Open in Google Maps</a></span></li>'
-             '<li><span>Opening hours</span><span>Wed and Fri 3 pm – 11 pm · Thu, Sat and Sun 3 pm – 8:30 pm · Closed Mon and Tue</span></li></ul></section>\n'
-             f'<section class="box faq"><h2>Frequently asked questions</h2>{faq(perguntas)}</section>\n'
-             '<p class="ver"><a class="insc" href="/en/">← New arrivals</a></p>')
-    desc = ("Visiting Évora? Weatherlight is a card shop and hobby store in Évora, Portugal: Pokémon, Magic, One Piece, Yu-Gi-Oh! and more, "
-            "mostly English editions, plus anime figures, Gunpla and weekly events. Address, opening hours and map.")
-    ld = {"@context": "https://schema.org", "@graph": [ld_loja, {
-        "@type": "WebPage", "name": "Visiting Évora? Card shop and hobby store — Weatherlight", "url": url, "inLanguage": "en",
-        "about": {"@id": ld_loja["@id"]}, "primaryImageOfPage": BASE + "/img/fachada.webp"},
-        {"@type": "FAQPage", "url": url, "mainEntity": [{"@type": "Question", "name": p, "acceptedAnswer": {"@type": "Answer", "text": re.sub("<[^>]+>", "", r).replace("&amp;", "&")}}
-                                                       for p, r in perguntas]}]}
-    escrever("en/visit/index.html", casca("Card shop in Évora, Portugal | Weatherlight Games & Collectibles", desc, url,
-             cab_faixa("Visiting <em>Évora</em>?", "Trading card games, anime figures and weekly events at Weatherlight, your hobby shop in Évora",
-                       '<a href="/en/">Weatherlight New Arrivals</a> › Visiting Évora?', "/img/fachada.webp", "50% 75%",
-                       "The front of the Weatherlight Games shop on Rua Frei José Maria Évora, Évora"),
-             corpo, ld, BASE + "/img/fachada.webp", lingua="en", alt={"pt": f"{BASE}/vens-de-fora/", "en": url}))
-    return url
+    """A página para quem visita Évora (em inglês) passou para o calendário: eventos.weatherlightgames.pt/en/.
+    Fica aqui só um reencaminhamento, para os links antigos continuarem a funcionar (não entra no sitemap)."""
+    destino = f"{EVENTOS}/en/"
+    escrever("en/visit/index.html", f'''<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Visiting Évora? | Weatherlight</title>
+<link rel="canonical" href="{destino}"><meta name="robots" content="noindex"><meta http-equiv="refresh" content="0; url={destino}"></head>
+<body><p>This page moved to <a href="{destino}">{destino}</a>.</p></body></html>
+''')
+    return None
 
 
 # ---------------- páginas dos sets (últimos lançamentos de cada jogo) ----------------
@@ -935,13 +901,13 @@ def gerar():
     hoje = dt.date.today().isoformat()
     open(os.path.join(RAIZ, "sitemap.xml"), "w").write(
         '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
-        + "".join(f"  <url><loc>{u}</loc><lastmod>{hoje}</lastmod></url>\n" for u in urls) + "</urlset>\n")
+        + "".join(f"  <url><loc>{u}</loc><lastmod>{hoje}</lastmod></url>\n" for u in urls if u) + "</urlset>\n")
     open(os.path.join(RAIZ, "robots.txt"), "w").write(f"User-agent: *\nAllow: /\n\nSitemap: {BASE}/sitemap.xml\n")
     open(os.path.join(RAIZ, "llms.txt"), "w").write(
         f"# Novidades Weatherlight\n\n> Produtos que acabaram de chegar à Weatherlight Games & Collectibles, loja de hobby em Évora "
         f"(Alentejo, Portugal): Trading Card Games, acessórios, figuras de anime, Model Kits, miniaturas, TTRPGs, blind boxes e peluches. Atualizado de hora a hora.\n\n"
         f"- [Novidades Weatherlight]({url})\n- [Primeira compra: pagamentos, envios, levantamento e devoluções]({BASE}/primeira-compra/)\n"
-        f"- [Guia de produtos por categoria]({BASE}/guia/)\n- [Arquivo de novidades por mês]({BASE}/arquivo/)\n" + "".join(f"- [{v['h1']}]({BASE}/{v['slug']}/)\n" for v in CATEGORIAS.values()) + "".join(f"- [{set_nome(s)} ({s['jogo']}) em Évora]({BASE}/sets/{s['slug']}/)\n" for s in SETS) + f"- [Vens de fora de Évora? (Montemor-o-Novo, Vendas Novas, Estremoz, Beja…)]({BASE}/vens-de-fora/)\n- [Visiting Évora? Card shop in Évora (English)]({BASE}/en/visit/)\n- [English version]({BASE}/en/)\n- [Feed RSS]({url}feed.xml)\n- [Loja online]({LOJA}/)\n- [Calendário de eventos]({EVENTOS}/)\n\n"
+        f"- [Guia de produtos por categoria]({BASE}/guia/)\n- [Arquivo de novidades por mês]({BASE}/arquivo/)\n" + "".join(f"- [{v['h1']}]({BASE}/{v['slug']}/)\n" for v in CATEGORIAS.values()) + "".join(f"- [{set_nome(s)} ({s['jogo']}) em Évora]({BASE}/sets/{s['slug']}/)\n" for s in SETS) + f"- [Vens de fora de Évora? (Montemor-o-Novo, Vendas Novas, Estremoz, Beja…)]({BASE}/vens-de-fora/)\n- [English version]({BASE}/en/)\n- [Feed RSS]({url}feed.xml)\n- [Loja online]({LOJA}/)\n- [Calendário de eventos]({EVENTOS}/)\n\n"
         "## Últimas novidades\n\n" + "".join(f"- [{d['nome']}]({d['url']}) · {preco(d.get('preco'))}\n" for d in vis[:40]))
     return url
 
