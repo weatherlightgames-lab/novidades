@@ -32,6 +32,4 @@ Site "Novidades Weatherlight" da Weatherlight Games & Collectibles (Évora, Alen
 - As execuções à mão (`teste`, `adicionar`, `sem_discord`) correm logo, à parte do ciclo.
 
 ## Listas de cartas dos sets
-- `bot/coleccoes.json`: os cartões de TCG ganham o link "🃏 Ver as cartas de …".
-  - Sets indicados um a um (`codigo`, `jogo`, `rx`, `url`): One Piece e hololive (listas oficiais) e exceções como o LM-09. Acrescentar quando chega um set novo destes jogos.
-  - Regras automáticas (`"auto": true`): Digimon e Gundam ligam sozinhos ao DigiLab a partir do código no nome (BT-27 → digimon.digilab.cards/cards/set/bt27; EB01 → gundam.digilab.cards/cards/set/eb01). Um set indicado um a um tem prioridade sobre a regra automática.
+- `bot/coleccoes.json`: um set por linha (`codigo`, `jogo`, `rx` para encontrar o código no nome do produto, `url`). Os cartões de TCG desse set ganham o link "🃏 Ver as cartas de …". Usar sempre a lista oficial em inglês da editora (Bandai: en.onepiece-cardgame.com, world.digimoncard.com, gundam-gcg.com/en; hololive: en.hololive-official-cardgame.com). Acrescentar quando chega um set novo. (O código ainda aceita regras automáticas por jogo, `"auto": true`, mas não estão a ser usadas.)
