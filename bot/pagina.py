@@ -630,6 +630,7 @@ try: SETS = json.load(open(os.path.join(AQUI, "sets.json")))
 except (FileNotFoundError, ValueError): SETS = []
 CSS_SETS = (".faixa{position:relative;height:clamp(150px,24vw,320px);overflow:hidden;background:#13232a}"
             ".faixa img{display:block;width:100%;height:100%;object-fit:cover}"
+            ".faixa::before{content:\"\";position:absolute;left:0;right:0;top:0;height:60%;background:linear-gradient(to bottom,var(--foam) 0%,color-mix(in srgb,var(--foam) 88%,transparent) 12%,color-mix(in srgb,var(--foam) 62%,transparent) 30%,color-mix(in srgb,var(--foam) 32%,transparent) 55%,color-mix(in srgb,var(--foam) 10%,transparent) 80%,transparent);pointer-events:none;z-index:1}"
             ".sets{display:grid;grid-template-columns:repeat(auto-fill,minmax(15rem,1fr));gap:.8rem}"
             ".setc{display:grid;background:var(--paper);border:1px solid var(--line);border-radius:8px;overflow:hidden;text-decoration:none;color:inherit}"
             ".setc:hover{border-color:var(--sea-2)}"
