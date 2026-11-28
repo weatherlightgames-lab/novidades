@@ -27,6 +27,19 @@
     "Língua",
     "Inglês"
    ]
+  ],
+  "slug_rx": "op-?18|dp-?13",
+  "eventos_lanc": [
+   [
+    "OP18 Release Event",
+    "2026-11-20",
+    "https://eventos.weatherlightgames.pt/one-piece/op18-the-dominance-of-god-release-event/"
+   ],
+   [
+    "OP18 Release Event",
+    "2026-11-21",
+    "https://eventos.weatherlightgames.pt/one-piece/op18-the-dominance-of-god-release-event-2026-11-21/"
+   ]
   ]
  },
  {
@@ -57,6 +70,14 @@
     "Booster Box",
     "24 Boosters"
    ]
+  ],
+  "slug_rx": "bt-?27",
+  "eventos_lanc": [
+   [
+    "BT27 Ignition of X Release Event",
+    "2026-12-04",
+    "https://eventos.weatherlightgames.pt/digimon/bt27-ignition-of-x-release-event/"
+   ]
   ]
  },
  {
@@ -65,7 +86,7 @@
   "jogo": "hololive Official Card Game",
   "nome": "Diva Fever",
   "rx": "\\bhBP-?07\\b",
-  "banner": "",
+  "banner": "/img/sets/hbp07.webp",
   "lancamento": "2026-11-20",
   "intro": "A 7.ª expansão do hololive Official Card Game traz cartas de apoio para 26 holomem de coleções anteriores, novas cartas OSR (Oshi holomem Super Rare), novas variantes de cor de AZKi e Tsunomaki Watame, cartas paralelas HR e quatro cartas SEC.",
   "factos": [
@@ -80,6 +101,235 @@
    [
     "Apoio",
     "26 holomem"
+   ],
+   [
+    "Língua",
+    "Inglês"
+   ]
+  ],
+  "slug_rx": "hbp-?07",
+  "foco": "50% 62%"
+ },
+ {
+  "slug": "delta-reign",
+  "titulo": "Pokémon Delta Reign",
+  "codigo": "Delta Reign",
+  "jogo": "Pokémon TCG",
+  "nome": "Delta Reign",
+  "rx": "Delta Reign",
+  "slug_rx": "delta-reign",
+  "eventos": "pokemon",
+  "banner": "",
+  "lancamento": "2026-11-06",
+  "intro": "A 6.ª expansão principal da série Mega Evolution tem como estrela Mega Rayquaza ex. Traz mais quatro Pokémon Mega Evolution ex, seis Pokémon ex e seis cartas de Estádio que se juntam aos pares para formar três Legendary Stadiums, além de 14 Illustration Rare, 17 Ultra Rare e 6 Special Illustration Rare.",
+  "factos": [
+   [
+    "Lançamento",
+    "6 de novembro de 2026"
+   ],
+   [
+    "Cartas",
+    "Mais de 135"
+   ],
+   [
+    "Estrela",
+    "Mega Rayquaza ex"
+   ],
+   [
+    "Novidade",
+    "Legendary Stadiums"
+   ]
+  ],
+  "eventos_lanc": [
+   [
+    "Prerelease Delta Reign",
+    "2026-10-25",
+    "https://eventos.weatherlightgames.pt/pokemon/prerelease-delta-reign-2026-10-25/"
+   ]
+  ]
+ },
+ {
+  "slug": "star-trek",
+  "titulo": "Magic Star Trek",
+  "codigo": "Star Trek",
+  "jogo": "Magic: The Gathering",
+  "nome": "Star Trek",
+  "rx": "Star Trek",
+  "slug_rx": "star-trek",
+  "eventos": "magic",
+  "banner": "",
+  "lancamento": "2026-11-13",
+  "cartas": "https://magic.wizards.com/en/products/star-trek/card-image-gallery",
+  "fonte_cartas": "site oficial do Magic",
+  "intro": "Um set Universes Beyond que celebra os 60 anos de Star Trek, com tripulações, adversários e naves de quase todas as séries, da série original às viagens mais recentes. É legal em todos os formatos e traz, pela primeira vez num set de Magic, cartas autografadas.",
+  "factos": [
+   [
+    "Lançamento",
+    "13 de novembro de 2026"
+   ],
+   [
+    "Código",
+    "TRK"
+   ],
+   [
+    "Formatos",
+    "Legal em todos"
+   ],
+   [
+    "Universo",
+    "60 anos de Star Trek"
+   ]
+  ],
+  "eventos_lanc": [
+   [
+    "Prerelease Star Trek",
+    "2026-11-06",
+    "https://eventos.weatherlightgames.pt/magic/prerelease-star-trek/"
+   ]
+  ]
+ },
+ {
+  "slug": "radiance",
+  "titulo": "Riftbound Radiance",
+  "codigo": "Radiance",
+  "jogo": "Riftbound: League of Legends TCG",
+  "nome": "Radiance",
+  "rx": "Radiance",
+  "slug_rx": "radiance",
+  "eventos": "riftbound",
+  "banner": "",
+  "lancamento": "2026-10-23",
+  "cartas": "https://playriftbound.com/en-us/news/announcements/the-radiance-overview/",
+  "fonte_cartas": "site oficial do Riftbound",
+  "intro": "O 5.º set de Riftbound é inspirado na música do universo League of Legends, com nove novas Champion Legends, entre elas Seraphine, Ekko, Ziggs, Jarvan IV e Evelynn, e os Showdown Decks Seraphine vs. Evelynn.",
+  "factos": [
+   [
+    "Lançamento",
+    "23 de outubro de 2026"
+   ],
+   [
+    "Cartas",
+    "180, incluindo 66 Showcase"
+   ],
+   [
+    "Código",
+    "RAD"
+   ],
+   [
+    "Tema",
+    "A música de League of Legends"
+   ]
+  ],
+  "eventos_lanc": [
+   [
+    "Summoner's Skirmish de Radiance",
+    "2026-11-22",
+    "https://eventos.weatherlightgames.pt/riftbound/summoner-s-skirmish-novembro/"
+   ]
+  ]
+ },
+ {
+  "slug": "beyond-the-brave",
+  "titulo": "Yu-Gi-Oh! Beyond the Brave",
+  "codigo": "Beyond the Brave",
+  "jogo": "Yu-Gi-Oh! TCG",
+  "nome": "Beyond the Brave",
+  "rx": "Beyond the Brave",
+  "slug_rx": "beyond-the-brave",
+  "eventos": "yu-gi-oh",
+  "banner": "",
+  "lancamento": "2026-10-08",
+  "cartas": "https://www.yugioh-card.com/eu/product/beyond-the-brave/",
+  "fonte_cartas": "site oficial do Yu-Gi-Oh!",
+  "intro": "Core Booster com novas versões das cartas favoritas de Joey Wheeler, cartas \"Destiny HERO\" reinventadas para os fãs de Aster Phoenix, o laço antigo entre Atlantis e Daedalus e cartas de apoio para decks existentes.",
+  "factos": [
+   [
+    "Lançamento",
+    "8 de outubro de 2026"
+   ],
+   [
+    "Cartas",
+    "100"
+   ],
+   [
+    "Código",
+    "BETB"
+   ],
+   [
+    "Destaque",
+    "Joey Wheeler"
+   ]
+  ],
+  "eventos_lanc": [
+   [
+    "Core Booster Premiere Beyond the Brave",
+    "2026-10-04",
+    "https://eventos.weatherlightgames.pt/yu-gi-oh/core-booster-premiere-beyond-the-brave/"
+   ]
+  ]
+ },
+ {
+  "slug": "gd06",
+  "codigo": "GD06",
+  "jogo": "Gundam Card Game",
+  "nome": "Stardust Trails",
+  "rx": "\\bGD-?06\\b|Stardust Trails",
+  "slug_rx": "gd-?06|stardust-trails",
+  "eventos": "gundam",
+  "banner": "",
+  "lancamento": "2026-10-30",
+  "intro": "Mobile Suit Gundam ZZ e Mobile Suit Gundam 0083: Stardust Memory estreiam no Gundam Card Game, com muitos mobile suits novos, entre eles o ZZ Gundam, e cartas que reforçam os decks do GD05 e anteriores.",
+  "factos": [
+   [
+    "Lançamento",
+    "30 de outubro de 2026"
+   ],
+   [
+    "Cartas",
+    "135+8 tipos"
+   ],
+   [
+    "Estreias",
+    "Gundam ZZ e 0083"
+   ],
+   [
+    "Booster",
+    "12 cartas"
+   ]
+  ],
+  "eventos_lanc": [
+   [
+    "GD06 Stardust Trails Release Event",
+    "2026-10-30",
+    "https://eventos.weatherlightgames.pt/gundam/gd06-stardust-trails-release-event/"
+   ]
+  ]
+ },
+ {
+  "slug": "umamusume-beginning-of-a-new-era",
+  "titulo": "Umamusume: Beginning of a New Era",
+  "codigo": "Beginning of a New Era",
+  "jogo": "Weiß Schwarz",
+  "nome": "Umamusume: Pretty Derby – Beginning of a New Era",
+  "rx": "Beginning of a New Era",
+  "slug_rx": "beginning-of-a-new-era",
+  "banner": "",
+  "lancamento": "2026-11-06",
+  "cartas": "https://en.ws-tcg.com/products/bp-uma2/",
+  "fonte_cartas": "site oficial do Weiß Schwarz",
+  "intro": "O filme Umamusume: Pretty Derby – Beginning of a New Era chega ao Weiß Schwarz em inglês, com 100 tipos de cartas e outras tantas versões paralelas.",
+  "factos": [
+   [
+    "Lançamento",
+    "6 de novembro de 2026"
+   ],
+   [
+    "Cartas",
+    "100 tipos + 100 paralelas"
+   ],
+   [
+    "Raridades",
+    "SP, RRR e SR"
    ],
    [
     "Língua",

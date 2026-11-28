@@ -78,5 +78,37 @@
   "nome": "ONE PIECE HEROINES EDITION vol.2",
   "url": "https://en.onepiece-cardgame.com/cardlist/?series=569205",
   "fonte": "lista oficial da Bandai (site em inglês)"
+ },
+ {
+  "codigo": "Star Trek",
+  "jogo": "Magic",
+  "rx": "Star Trek",
+  "nome": "Star Trek",
+  "url": "https://magic.wizards.com/en/products/star-trek/card-image-gallery",
+  "fonte": "site oficial do Magic"
+ },
+ {
+  "codigo": "Radiance",
+  "jogo": "Riftbound",
+  "rx": "\\bRadiance\\b",
+  "nome": "Radiance",
+  "url": "https://playriftbound.com/en-us/news/announcements/the-radiance-overview/",
+  "fonte": "site oficial do Riftbound"
+ },
+ {
+  "codigo": "Beyond the Brave",
+  "jogo": "Yu-Gi-Oh",
+  "rx": "Beyond the Brave",
+  "nome": "Beyond the Brave",
+  "url": "https://www.yugioh-card.com/eu/product/beyond-the-brave/",
+  "fonte": "site oficial do Yu-Gi-Oh!"
+ },
+ {
+  "codigo": "Beginning of a New Era",
+  "jogo": "Schwarz",
+  "rx": "Beginning of a New Era",
+  "nome": "Umamusume: Pretty Derby – Beginning of a New Era",
+  "url": "https://en.ws-tcg.com/products/bp-uma2/",
+  "fonte": "site oficial do Weiß Schwarz"
  }
 ]

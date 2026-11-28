@@ -130,6 +130,28 @@ def publicar(webhook, produtos):
         time.sleep(2)
 
 
+def catalogo_sets(atuais):
+    """Produtos da loja de cada set de bot/sets.json (também os que chegaram antes do site das novidades).
+    Guarda-os em bot/sets_produtos.json; as páginas /sets/… juntam-nos aos de dados.json."""
+    aqui = os.path.dirname(os.path.abspath(__file__))
+    try: sets = json.load(open(os.path.join(aqui, "sets.json")))
+    except (FileNotFoundError, ValueError): return
+    f = os.path.join(aqui, "sets_produtos.json")
+    try: cat = json.load(open(f))
+    except (FileNotFoundError, ValueError): cat = []
+    ja = {d["url"] for d in cat} | {d["url"] for d in pagina.carregar()}
+    falta = sorted(u for u in atuais if u not in ja and any(
+        s.get("slug_rx") and re.search(s["slug_rx"], u.rsplit("/", 1)[-1], re.I) for s in sets))
+    for u in falta[:25]:  # aos poucos, para não sobrecarregar a loja
+        try:
+            d = dados_produto(u)
+            if d.get("nome"): d["data"] = time.strftime("%Y-%m-%dT%H:%M:%S+00:00", time.gmtime()); cat.append(d)
+        except Exception as e: print("Falhou", u, e)
+    cat = [d for d in cat if d["url"] in atuais]  # produtos apagados da loja saem
+    json.dump(cat, open(f, "w"), ensure_ascii=False, indent=0)
+    if falta: print(f"Sets: {min(len(falta), 25)} produtos juntados ({len(falta)} em falta).")
+
+
 def main():
     estado_f = sys.argv[1]
     webhook = os.environ.get("DISCORD_WEBHOOK", "").strip()
@@ -152,6 +174,8 @@ def main():
     novos = sorted(atuais - vistos)
     print(f"{len(atuais)} produtos no site, {len(novos)} novos.")
     sem_discord = os.environ.get("SEM_DISCORD", "").lower() in ("1", "true", "sim")
+    try: catalogo_sets(atuais - set(novos))
+    except Exception as e: print("Sets: falhou", e)
     if novos:
         if not webhook and not sem_discord: sys.exit("Falta o segredo DISCORD_WEBHOOK.")
         ds = []
