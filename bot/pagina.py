@@ -761,7 +761,7 @@ def pagina_set(s, dados, ld_loja):
         (f"Onde posso comprar {set_nome(s)} em Évora?",
          f"Na Weatherlight Games &amp; Collectibles, em Évora: na loja física ou na nossa <a href=\"{loja_url(LOJA + '/')}\"{NOVA}>loja online</a>, com envio para todo o país ou levantamento na loja."),
         (f"Que cartas podem sair em {s['codigo']}?",
-         (f"A lista completa está no <a href=\"{html.escape(col['url'])}\"{NOVA}>site oficial do {html.escape(s['jogo'])}</a> (em inglês)." if col
+         (f"A lista completa, em inglês, está no <a href=\"{html.escape(col['url'])}\"{NOVA}>{html.escape(col.get('fonte') if col.get('fonte') and not col['fonte'].startswith('lista') else 'site oficial do ' + s['jogo'])}</a>." if col
           else "Consulta o site oficial do jogo para veres a lista completa.")),
         ("A Weatherlight vende cartas soltas (Singles)?", "Não. De momento não vendemos Singles, nem na loja nem online."),
     ]

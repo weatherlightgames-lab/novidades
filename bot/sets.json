@@ -119,7 +119,7 @@
   "rx": "Delta Reign",
   "slug_rx": "delta-reign",
   "eventos": "pokemon",
-  "banner": "",
+  "banner": "/img/sets/delta-reign.webp",
   "lancamento": "2026-11-06",
   "intro": "A 6.ª expansão principal da série Mega Evolution tem como estrela Mega Rayquaza ex. Traz mais quatro Pokémon Mega Evolution ex, seis Pokémon ex e seis cartas de Estádio que se juntam aos pares para formar três Legendary Stadiums, além de 14 Illustration Rare, 17 Ultra Rare e 6 Special Illustration Rare.",
   "factos": [
@@ -146,7 +146,10 @@
     "2026-10-25",
     "https://eventos.weatherlightgames.pt/pokemon/prerelease-delta-reign-2026-10-25/"
    ]
-  ]
+  ],
+  "foco": "50% 92%",
+  "cartas": "https://limitlesstcg.com/cards/DLR",
+  "fonte_cartas": "Limitless"
  },
  {
   "slug": "star-trek",
@@ -157,7 +160,7 @@
   "rx": "Star Trek",
   "slug_rx": "star-trek",
   "eventos": "magic",
-  "banner": "",
+  "banner": "/img/sets/star-trek.webp",
   "lancamento": "2026-11-13",
   "cartas": "https://magic.wizards.com/en/products/star-trek/card-image-gallery",
   "fonte_cartas": "site oficial do Magic",
@@ -186,7 +189,8 @@
     "2026-11-06",
     "https://eventos.weatherlightgames.pt/magic/prerelease-star-trek/"
    ]
-  ]
+  ],
+  "foco": "50% 40%"
  },
  {
   "slug": "radiance",
@@ -197,7 +201,7 @@
   "rx": "Radiance",
   "slug_rx": "radiance",
   "eventos": "riftbound",
-  "banner": "",
+  "banner": "/img/sets/radiance.webp",
   "lancamento": "2026-10-23",
   "cartas": "https://playriftbound.com/en-us/news/announcements/the-radiance-overview/",
   "fonte_cartas": "site oficial do Riftbound",
@@ -226,7 +230,8 @@
     "2026-11-22",
     "https://eventos.weatherlightgames.pt/riftbound/summoner-s-skirmish-novembro/"
    ]
-  ]
+  ],
+  "foco": "50% 30%"
  },
  {
   "slug": "beyond-the-brave",
@@ -237,7 +242,7 @@
   "rx": "Beyond the Brave",
   "slug_rx": "beyond-the-brave",
   "eventos": "yu-gi-oh",
-  "banner": "",
+  "banner": "/img/sets/beyond-the-brave.webp",
   "lancamento": "2026-10-08",
   "cartas": "https://www.yugioh-card.com/eu/product/beyond-the-brave/",
   "fonte_cartas": "site oficial do Yu-Gi-Oh!",
@@ -266,7 +271,8 @@
     "2026-10-04",
     "https://eventos.weatherlightgames.pt/yu-gi-oh/core-booster-premiere-beyond-the-brave/"
    ]
-  ]
+  ],
+  "foco": "50% 50%"
  },
  {
   "slug": "gd06",
@@ -276,7 +282,7 @@
   "rx": "\\bGD-?06\\b|Stardust Trails",
   "slug_rx": "gd-?06|stardust-trails",
   "eventos": "gundam",
-  "banner": "",
+  "banner": "/img/sets/gd06.webp",
   "lancamento": "2026-10-30",
   "intro": "Mobile Suit Gundam ZZ e Mobile Suit Gundam 0083: Stardust Memory estreiam no Gundam Card Game, com muitos mobile suits novos, entre eles o ZZ Gundam, e cartas que reforçam os decks do GD05 e anteriores.",
   "factos": [
@@ -303,7 +309,10 @@
     "2026-10-30",
     "https://eventos.weatherlightgames.pt/gundam/gd06-stardust-trails-release-event/"
    ]
-  ]
+  ],
+  "foco": "50% 28%",
+  "cartas": "https://www.gundam-gcg.com/en/cards/?package=616106",
+  "fonte_cartas": "site oficial do Gundam Card Game"
  },
  {
   "slug": "umamusume-beginning-of-a-new-era",
@@ -313,7 +322,7 @@
   "nome": "Umamusume: Pretty Derby – Beginning of a New Era",
   "rx": "Beginning of a New Era",
   "slug_rx": "beginning-of-a-new-era",
-  "banner": "",
+  "banner": "/img/sets/umamusume-beginning-of-a-new-era.webp",
   "lancamento": "2026-11-06",
   "cartas": "https://en.ws-tcg.com/products/bp-uma2/",
   "fonte_cartas": "site oficial do Weiß Schwarz",
@@ -335,6 +344,7 @@
     "Língua",
     "Inglês"
    ]
-  ]
+  ],
+  "foco": "50% 62%"
  }
 ]

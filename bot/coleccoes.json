@@ -110,5 +110,21 @@
   "nome": "Umamusume: Pretty Derby – Beginning of a New Era",
   "url": "https://en.ws-tcg.com/products/bp-uma2/",
   "fonte": "site oficial do Weiß Schwarz"
+ },
+ {
+  "codigo": "Delta Reign",
+  "jogo": "Pokémon",
+  "rx": "Delta Reign",
+  "nome": "Delta Reign",
+  "url": "https://limitlesstcg.com/cards/DLR",
+  "fonte": "Limitless"
+ },
+ {
+  "codigo": "GD06",
+  "jogo": "Gundam Card Game",
+  "rx": "\\bGD-?06\\b|Stardust Trails",
+  "nome": "Stardust Trails",
+  "url": "https://www.gundam-gcg.com/en/cards/?package=616106",
+  "fonte": "lista oficial da Bandai"
  }
 ]
