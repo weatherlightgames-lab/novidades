@@ -70,5 +70,13 @@
   "nome": "Diva Fever",
   "url": "https://en.hololive-official-cardgame.com/products/post/diva-fever/",
   "fonte": "página oficial do produto (Bushiroad)"
+ },
+ {
+  "codigo": "EB-05",
+  "jogo": "One Piece",
+  "rx": "\\bEB-?05\\b|\\bGC-?2026\\b",
+  "nome": "ONE PIECE HEROINES EDITION vol.2",
+  "url": "https://en.onepiece-cardgame.com/cardlist/?series=569205",
+  "fonte": "lista oficial da Bandai (site em inglês)"
  }
 ]
