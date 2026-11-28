@@ -756,7 +756,7 @@ CSS_SETS = (".faixa{position:relative;z-index:0;height:calc(clamp(150px,24vw,320
             ".lanc.topo .setc{scroll-snap-align:start}.lanc.topo .setc .fx2{height:3.6rem}.lanc.topo .t2{padding:.45rem .65rem}"
             ".lanc.topo .t2 strong{font-size:.82rem;font-weight:500;line-height:1.25;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.lanc.topo .t2 small{display:none}"
             ".lanc.topo h2{font-size:1rem;margin-bottom:.5rem}.lanc.topo{margin-bottom:1.2rem}.lanc h2 small{font-size:.75rem;color:var(--muted);text-transform:none;letter-spacing:0}"
-            ".setc{position:relative}.breve{position:absolute;top:.45rem;left:.45rem;font:600 .68rem/1 var(--mono, inherit);font-style:normal;letter-spacing:.04em;text-transform:uppercase;background:var(--brass);color:#fff;padding:.3rem .45rem;border-radius:4px}"
+            ".setc{position:relative}.breve{position:absolute;top:.45rem;left:.45rem;font-size:.7rem;font-weight:400;font-style:normal;line-height:1;letter-spacing:.02em;background:rgba(255,255,255,.88);color:var(--ink);padding:.28rem .45rem;border-radius:4px}"
             ".lanc.topo .breve{top:.3rem;left:.3rem;font-size:.6rem;padding:.22rem .35rem}"
             ".lks2{display:flex;flex-wrap:wrap;gap:.5rem;margin:1rem 0 1.8rem}.lanc{margin:0 0 1.6rem}")
 CSS += CSS_SETS
