@@ -605,7 +605,9 @@ def categoria(chave, dados, ld_loja):
         jogos = ('<section class="sec"><h2>Jogar na Weatherlight</h2><nav class="help" aria-label="Eventos por jogo">' + "".join(
             f'<a href="{EVENTOS}/{pasta}/"{NOVA}><strong>{nome}</strong><span>Eventos semanais e especiais</span></a>'
             for _, nome, pasta in JOGOS if pasta != "gundam-assemble") + "</nav></section>")
-    corpo = (f'<p class="intro-cat">{c["intro"]}</p>\n'
+    lanc = sets_cartoes(dados) if chave == "TCG" else ""
+    if lanc: lanc = f'<section class="sec lanc"><h2>Últimos lançamentos</h2>{lanc}</section>\n'
+    corpo = (f'<p class="intro-cat">{c["intro"]}</p>\n' + lanc
              + (dias_html(lista) or '<section class="box"><p class="m">As novidades desta categoria aparecem aqui assim que chegam à loja.</p></section>')
              + f"\n{guia_box}\n<section class=\"box faq\"><h2>Perguntas frequentes</h2>{faq(c['faq'])}</section>\n{jogos}\n"
              f'<p class="ver"><a class="insc" href="/">← Todas as novidades</a></p>')
@@ -620,6 +622,86 @@ def categoria(chave, dados, ld_loja):
     og = next((quadrado(fotos(d)[0]) for d in lista if fotos(d)), "")
     escrever(f"{c['slug']}/index.html", casca(f"{c['h1']} | Novidades Weatherlight, Alentejo", desc, url,
              cab_pagina(c["h1"], c["sub"], c["nome"]), corpo, ld, og, JS_FOTOS))
+    return url
+
+
+# ---------------- páginas dos sets (últimos lançamentos de cada jogo) ----------------
+try: SETS = json.load(open(os.path.join(AQUI, "sets.json")))
+except (FileNotFoundError, ValueError): SETS = []
+CSS_SETS = (".faixa{position:relative;height:clamp(150px,24vw,320px);overflow:hidden;background:#13232a}"
+            ".faixa img{display:block;width:100%;height:100%;object-fit:cover}"
+            ".sets{display:grid;grid-template-columns:repeat(auto-fill,minmax(15rem,1fr));gap:.8rem}"
+            ".setc{display:grid;background:var(--paper);border:1px solid var(--line);border-radius:8px;overflow:hidden;text-decoration:none;color:inherit}"
+            ".setc:hover{border-color:var(--sea-2)}"
+            ".setc .fx2{height:7.5rem;background:#13232a center/cover no-repeat}"
+            ".setc .fx2.sem{display:grid;place-items:center;color:#d6e5e8;font-weight:600;letter-spacing:.06em}"
+            ".setc span.t2{padding:.7rem .9rem;display:grid;gap:.15rem}.setc small{color:var(--muted);font-size:.8rem}"
+            ".lks2{display:flex;flex-wrap:wrap;gap:.5rem;margin:1rem 0 1.8rem}.lanc{margin:0 0 1.6rem}")
+CSS += CSS_SETS
+
+
+def set_lista(s, dados):
+    return [d for d in dados if d["tipo"] == "TCG" and re.search(s["rx"], d["nome"], re.I)]
+
+
+def set_cartas(s):
+    return next((c for c in COLECCOES if c.get("codigo", "").lower() == s["codigo"].lower()), None)
+
+
+def sets_cartoes(dados):
+    """Cartões 'Últimos lançamentos' (página principal e página de TCG)."""
+    out = []
+    for s in SETS:
+        if not set_lista(s, dados): continue
+        fx = (f'<span class="fx2" style="background-image:url({s["banner"]});background-position:{s.get("foco", "50% 50%")}"></span>' if s.get("banner")
+              else f'<span class="fx2 sem">{html.escape(s["codigo"])}</span>')
+        out.append(f'<a class="setc" href="/sets/{s["slug"]}/">{fx}<span class="t2"><strong>{html.escape(s["codigo"])} {html.escape(s["nome"])}</strong>'
+                   f'<small>{html.escape(s["jogo"])}</small></span></a>')
+    return f'<div class="sets">{"".join(out)}</div>' if out else ""
+
+
+def pagina_set(s, dados, ld_loja):
+    url = f"{BASE}/sets/{s['slug']}/"
+    lista = set_lista(s, dados)
+    titulo = f"{s['codigo']} {s['nome']} em Évora"
+    sub = f"{s['jogo']}: Boosters e Booster Boxes de {s['nome']}, na Weatherlight, em Évora"
+    faixa = (f'<div class="faixa"><img src="{s["banner"]}" alt="" style="object-position:{s.get("foco", "50% 50%")}" fetchpriority="high"></div>'
+             if s.get("banner") else "")
+    cab = (f'<header>\n  <div class="wrap">\n    <span class="crumbs"><a href="/">Novidades Weatherlight</a> › <a href="/tcg/">Trading Card Games</a> › {html.escape(s["codigo"])}</span>\n'
+           f'    <h1>{html.escape(titulo)}</h1>\n    <p class="sub">{html.escape(sub)}</p>\n  </div>\n</header>\n{faixa}')
+    factos = '<ul class="facts">' + "".join(f"<li><small>{html.escape(a)}</small><strong>{html.escape(b)}</strong></li>" for a, b in s.get("factos", [])) + "</ul>"
+    col = set_cartas(s)
+    lks = []
+    if col: lks.append(f'<a class="insc" href="{html.escape(col["url"])}"{NOVA}>🃏 Ver as cartas de {html.escape(s["codigo"])} ↗</a>')
+    if s.get("eventos"):
+        jn = next((n for _, n, p in JOGOS if p == s["eventos"]), s["jogo"])
+        lks.append(f'<a class="insc" href="{EVENTOS}/{s["eventos"]}/"{NOVA}>📅 Eventos de {html.escape(jn)} na Weatherlight</a>')
+    lks.append(f'<a class="insc" href="{loja_url(LOJA + "/")}"{NOVA}>🛒 Loja online</a>')
+    produtos = (f'<section class="sec"><h2>{html.escape(s["codigo"])} na Weatherlight</h2><div class="grid">{"".join(card(d) for d in lista)}</div></section>'
+                if lista else '<section class="box"><p class="m">Os produtos deste set aparecem aqui assim que chegam à loja.</p></section>')
+    perguntas = [
+        (f"Onde posso comprar {s['codigo']} {s['nome']} em Évora?",
+         f"Na Weatherlight Games &amp; Collectibles, em Évora: na loja física ou na nossa <a href=\"{loja_url(LOJA + '/')}\"{NOVA}>loja online</a>, com envio para todo o país ou levantamento na loja."),
+        (f"Que cartas podem sair em {s['codigo']}?",
+         (f"A lista completa está no <a href=\"{html.escape(col['url'])}\"{NOVA}>site oficial do {html.escape(s['jogo'])}</a> (em inglês)." if col
+          else "Consulta o site oficial do jogo para veres a lista completa.")),
+        ("A Weatherlight vende cartas soltas (Singles)?", "Não. De momento não vendemos Singles, nem na loja nem online."),
+    ]
+    corpo = (f'<p class="intro-cat">{html.escape(s["intro"])}</p>\n{factos}\n<p class="lks2">{"".join(lks)}</p>\n{produtos}\n'
+             f'<section class="box faq"><h2>Perguntas frequentes</h2>{faq(perguntas)}</section>\n'
+             f'<p class="ver"><a class="insc" href="/tcg/">← Trading Card Games</a></p>')
+    desc = (f"{s['codigo']} {s['nome']} ({s['jogo']}) na Weatherlight, loja de hobby em Évora (Alentejo, Portugal): "
+            f"Boosters e Booster Boxes, lista de cartas e eventos.")
+    ld = {"@context": "https://schema.org", "@graph": [ld_loja, {
+        "@type": "CollectionPage", "name": f"{titulo} — Weatherlight", "url": url, "inLanguage": "pt-PT", "about": {"@id": ld_loja["@id"]},
+        "spatialCoverage": {"@type": "Place", "name": "Évora, Alentejo, Portugal"},
+        "image": (BASE + s["banner"]) if s.get("banner") else None,
+        "mainEntity": {"@type": "ItemList", "itemListElement": [{"@type": "ListItem", "position": i + 1, "item": produto_ld(d, ld_loja)}
+                                                                for i, d in enumerate(lista)]}},
+        {"@type": "FAQPage", "url": url, "mainEntity": [{"@type": "Question", "name": p, "acceptedAnswer": {"@type": "Answer", "text": re.sub("<[^>]+>", "", r).replace("&amp;", "&")}}
+                                                       for p, r in perguntas]}]}
+    og = (BASE + s["banner"]) if s.get("banner") else next((quadrado(fotos(d)[0]) for d in lista if fotos(d)), "")
+    escrever(f"sets/{s['slug']}/index.html", casca(f"{s['codigo']} {s['nome']} em Évora | Novidades Weatherlight", desc, url, cab, corpo, ld, og, JS_FOTOS))
     return url
 
 
@@ -664,7 +746,9 @@ def gerar():
             f'      <p class="subs-l"><a href="{DISCORD}"{NOVA}>🔔 Canal de novidades no Discord</a><a href="{INSTAGRAM}"{NOVA}>📸 Instagram</a><a href="{url}feed.xml">RSS</a></p></div></div></section>')
     expl = {"TCG": "Boosters, Booster Boxes e Starter Decks de todos os jogos", "Figuras": "Prize e Scale Figures, Nendoroid e muito mais",
             "Model Kits": "Gunpla e Model Kits de One Piece, do EG ao MG"}
-    explora = ('<section class="sec explora"><h2>Explora por categoria</h2><nav class="help" aria-label="Categorias">'
+    lanc = sets_cartoes(dados)
+    explora = ((f'<section class="sec explora"><h2>Últimos lançamentos</h2>{lanc}</section>' if lanc else "") +
+               '<section class="sec explora"><h2>Explora por categoria</h2><nav class="help" aria-label="Categorias">'
                + "".join(f'<a href="/{v["slug"]}/"><strong>{ESTILO_TIPO[k][0]} {v["nome"]}</strong><span>{expl.get(k, "")}</span></a>' for k, v in CATEGORIAS.items())
                + '</nav></section>'
                '<section class="sec explora"><h2>Novidades anteriores</h2><nav class="help" aria-label="Arquivo">'
@@ -674,7 +758,7 @@ def gerar():
         casca("Novidades Weatherlight | Évora, Alentejo, Portugal", desc, url, cab, corpo, ld, og, JS_FOTOS + JS_FILTROS,
               alt={"pt": url, "en": f"{BASE}/en/"}))
     urls = ([url, ingles(vis, ld_loja), primeira_compra(ld_loja), guia(ld_loja)] + [categoria(k, dados, ld_loja) for k in CATEGORIAS]
-            + arquivo(dados, ld_loja))
+            + arquivo(dados, ld_loja) + [pagina_set(s, dados, ld_loja) for s in SETS if set_lista(s, dados)])
     json.dump({"name": "Novidades Weatherlight", "short_name": "Novidades WL", "start_url": "/", "display": "standalone",
                "background_color": "#ffffff", "theme_color": "#ffffff", "lang": "pt-PT",
                "icons": [{"src": "/apple-touch-icon.png", "sizes": "180x180", "type": "image/png"}]},
@@ -697,7 +781,7 @@ def gerar():
         f"# Novidades Weatherlight\n\n> Produtos que acabaram de chegar à Weatherlight Games & Collectibles, loja de hobby em Évora "
         f"(Alentejo, Portugal): Trading Card Games, acessórios, figuras de anime, Model Kits, miniaturas, TTRPGs, blind boxes e peluches. Atualizado de hora a hora.\n\n"
         f"- [Novidades Weatherlight]({url})\n- [Primeira compra: pagamentos, envios, levantamento e devoluções]({BASE}/primeira-compra/)\n"
-        f"- [Guia de produtos por categoria]({BASE}/guia/)\n- [Arquivo de novidades por mês]({BASE}/arquivo/)\n" + "".join(f"- [{v['h1']}]({BASE}/{v['slug']}/)\n" for v in CATEGORIAS.values()) + f"- [English version]({BASE}/en/)\n- [Feed RSS]({url}feed.xml)\n- [Loja online]({LOJA}/)\n- [Calendário de eventos]({EVENTOS}/)\n\n"
+        f"- [Guia de produtos por categoria]({BASE}/guia/)\n- [Arquivo de novidades por mês]({BASE}/arquivo/)\n" + "".join(f"- [{v['h1']}]({BASE}/{v['slug']}/)\n" for v in CATEGORIAS.values()) + "".join(f"- [{s['codigo']} {s['nome']} ({s['jogo']}) em Évora]({BASE}/sets/{s['slug']}/)\n" for s in SETS if set_lista(s, dados)) + f"- [English version]({BASE}/en/)\n- [Feed RSS]({url}feed.xml)\n- [Loja online]({LOJA}/)\n- [Calendário de eventos]({EVENTOS}/)\n\n"
         "## Últimas novidades\n\n" + "".join(f"- [{d['nome']}]({d['url']}) · {preco(d.get('preco'))}\n" for d in vis[:40]))
     return url
 
