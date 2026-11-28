@@ -237,7 +237,14 @@ def casca(titulo, desc, url, cabecalho, corpo, ld=None, og="", js="", lingua="pt
 """
 
 
+def h1_evora(titulo):
+    """'… em Évora' com 'em Évora' na cor de destaque, como 'Weatherlight' na página principal."""
+    t = html.escape(titulo)
+    return t[:-9] + " <em>em Évora</em>" if titulo.endswith(" em Évora") else t
+
+
 def cab_pagina(titulo, sub, nome):
+    titulo = h1_evora(titulo)
     return (f'<header>\n  <div class="wrap">\n    <span class="crumbs"><a href="/">Novidades Weatherlight</a> › {nome}</span>\n'
             f'    <h1>{titulo}</h1>\n    <p class="sub">{sub}</p>\n  </div>\n</header>')
 
@@ -670,7 +677,7 @@ def pagina_set(s, dados, ld_loja):
     faixa = (f'<div class="faixa"><img src="{s["banner"]}" alt="" style="object-position:{s.get("foco", "50% 50%")}" fetchpriority="high"></div>'
              if s.get("banner") else "")
     cab = (f'<header{" class=cf" if s.get("banner") else ""}>\n  <div class="wrap">\n    <span class="crumbs"><a href="/">Novidades Weatherlight</a> › <a href="/tcg/">Trading Card Games</a> › {html.escape(s["codigo"])}</span>\n'
-           f'    <h1>{html.escape(titulo)}</h1>\n    <p class="sub">{html.escape(sub)}</p>\n  </div>\n</header>\n{faixa}')
+           f'    <h1>{h1_evora(titulo)}</h1>\n    <p class="sub">{html.escape(sub)}</p>\n  </div>\n</header>\n{faixa}')
     factos = '<ul class="facts">' + "".join(f"<li><small>{html.escape(a)}</small><strong>{html.escape(b)}</strong></li>" for a, b in s.get("factos", [])) + "</ul>"
     col = set_cartas(s)
     lks = []
