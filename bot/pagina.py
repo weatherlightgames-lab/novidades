@@ -694,6 +694,8 @@ CSS_SETS = (".faixa{position:relative;z-index:0;height:calc(clamp(150px,24vw,320
             ".setc .fx2{height:7.5rem;background:#13232a center/cover no-repeat}"
             ".setc .fx2.sem{display:grid;place-items:center;color:#d6e5e8;font-weight:600;letter-spacing:.06em}"
             ".setc span.t2{padding:.7rem .9rem;display:grid;gap:.15rem}.setc small{color:var(--muted);font-size:.8rem}"
+            ".lanc.topo .sets{grid-auto-flow:column;grid-auto-columns:minmax(13rem,15rem);grid-template-columns:none;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:.4rem}"
+            ".lanc.topo .setc{scroll-snap-align:start}.lanc.topo .setc .fx2{height:6.5rem}.lanc h2 small{font-size:.75rem;color:var(--muted);text-transform:none;letter-spacing:0}"
             ".lks2{display:flex;flex-wrap:wrap;gap:.5rem;margin:1rem 0 1.8rem}.lanc{margin:0 0 1.6rem}")
 CSS += CSS_SETS
 
@@ -825,13 +827,14 @@ def gerar():
     expl = {"TCG": "Boosters, Booster Boxes e Starter Decks de todos os jogos", "Figuras": "Prize e Scale Figures, Nendoroid e muito mais",
             "Model Kits": "Gunpla e Model Kits de One Piece, do EG ao MG"}
     lanc = sets_cartoes(dados)
-    explora = ((f'<section class="sec explora"><h2>Últimos lançamentos</h2>{lanc}</section>' if lanc else "") +
+    lanc_topo = (f'<section class="sec lanc topo"><h2>Últimos lançamentos <small>· desliza para ver todos</small></h2>{lanc}</section>' if lanc else "")
+    explora = (
                '<section class="sec explora"><h2>Explora por categoria</h2><nav class="help" aria-label="Categorias">'
                + "".join(f'<a href="/{v["slug"]}/"><strong>{ESTILO_TIPO[k][0]} {v["nome"]}</strong><span>{expl.get(k, "")}</span></a>' for k, v in CATEGORIAS.items())
                + '</nav></section>'
                '<section class="sec explora"><h2>Novidades anteriores</h2><nav class="help" aria-label="Arquivo">'
                '<a href="/arquivo/"><strong>📦 Arquivo de novidades</strong><span>Tudo o que chegou à Weatherlight, mês a mês</span></a></nav></section>')
-    corpo = f"    {ajuda}\n    {filtros}\n    {blocos}\n    {explora}\n    {subs}"
+    corpo = f"    {ajuda}\n    {lanc_topo}\n    {filtros}\n    {blocos}\n    {explora}\n    {subs}"
     open(os.path.join(RAIZ, "index.html"), "w").write(
         casca("Novidades Weatherlight | Évora, Alentejo, Portugal", desc, url, cab, corpo, ld, og, JS_FOTOS + JS_FILTROS,
               alt={"pt": url, "en": f"{BASE}/en/"}))
